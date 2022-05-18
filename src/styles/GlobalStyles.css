@@ -1,0 +1,21 @@
+@font-face {
+	font-family: 'Poppins';
+	src: local('Poppins'), url('../fonts/Poppins.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'ComicMono';
+	src: local('ComicMono'), url('../fonts/ComicMono.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'LaBelleAurore';
+	src: local('LaBelleAurore'), url('../fonts/LaBelleAurore.ttf') format('truetype');
+}
+
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+}
