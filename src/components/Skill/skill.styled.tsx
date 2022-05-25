@@ -1,4 +1,7 @@
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import ColorScheme from '../../styles/colorScheme';
+
+const { darkMode, lightMode } = ColorScheme;
 
 type ProgressProps = {
     progress: number;

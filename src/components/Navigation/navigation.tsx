@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container, Image, Links, Social, SocialItem, Item } from './navigation.styled';
-import { Logo, FacebookDark, TwitterDark, InstagramDark, SnapchatDark, FacebookLight, TwitterLight, InstagramLight, SnapchatLight } from '../../images/ImageExporter'
+import { Container, Title, Image, Links, Social, SocialItem, Item } from './navigation.styled';
+import { FacebookDark, TwitterDark, InstagramDark, SnapchatDark, FacebookLight, TwitterLight, InstagramLight, SnapchatLight } from '../../images/ImageExporter'
 
 type NavigationProps = {
 	darkMode: boolean
@@ -13,7 +13,7 @@ const Navigation: React.FC<NavigationProps> = (props: NavigationProps) => {
 		<>
 			<Container className={darkMode ? 'dark' : ''}>
 				<Image>
-					<Item><img src={Logo} alt={'Logo.png'} width={130} height={130}/></Item>
+					<Item><Title>David Škulj</Title></Item>
 				</Image>
 
 				<Links>
