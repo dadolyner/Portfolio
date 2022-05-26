@@ -1,34 +1,26 @@
-import React from 'react';
-import { Container, Title, Image, Links, Social, SocialItem, Item } from './navigation.styled';
-import { FacebookDark, TwitterDark, InstagramDark, SnapchatDark, FacebookLight, TwitterLight, InstagramLight, SnapchatLight } from '../../images/ImageExporter'
+import * as React from 'react';
+import { Container, NavigationLogo, NavigationItems, Item, Hamburger, Lines } from './navigation.styled';
+// <Navigation />
 
-type NavigationProps = {
-	darkMode: boolean
-}
-
-const Navigation: React.FC<NavigationProps> = (props: NavigationProps) => {
-	const { darkMode } = props;
+const Navigation: React.FC = () => {
+	const [isOpen, setIsOpen] = React.useState(false);
 
 	return (
 		<>
-			<Container className={darkMode ? 'dark' : ''}>
-				<Image>
-					<Item><Title>David Škulj</Title></Item>
-				</Image>
+			<Container>
+				<NavigationLogo onClick={() => {}}><h3>David Škulj</h3></NavigationLogo>
 
-				<Links>
-					<Item>About</Item>
-					<Item>Skills</Item>
-					<Item>Projects</Item>
-					<Item>Contact</Item>
-				</Links>
+				<Hamburger onClick={() => setIsOpen(!isOpen)}>
+					<Lines />
+					<Lines />
+					<Lines />
+				</Hamburger>
 
-				<Social>
-					<SocialItem><img src={ darkMode ? FacebookDark : FacebookLight } alt={'Facebook.png'} width={40} height={40}/></SocialItem>
-					<SocialItem><img src={ darkMode ? TwitterDark : TwitterLight } alt={'Twitter.png'} width={40} height={40}/></SocialItem>
-					<SocialItem><img src={ darkMode ? InstagramDark : InstagramLight } alt={'Instagram.png'} width={40} height={40}/></SocialItem>
-					<SocialItem><img src={ darkMode ? SnapchatDark : SnapchatLight } alt={'Snapchat.png'} width={40} height={40}/></SocialItem>
-				</Social>
+				<NavigationItems isOpen={isOpen}>
+					<Item onClick={() => { setIsOpen(false) }}>Home</Item>
+					<Item onClick={() => { setIsOpen(false) }}>Settings</Item>
+					<Item onClick={() => { setIsOpen(false) }}>Logout</Item>
+				</NavigationItems>
 			</Container>
 		</>
 	);

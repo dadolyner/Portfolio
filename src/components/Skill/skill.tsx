@@ -1,21 +1,24 @@
 import React from 'react';
-import { Container, Title, ProgressContainer, Progress } from './skill.styled';
+import { Container, Title, ProgressContainer, Progress, Percentage } from './skill.styled';
+// <Skill title={'ReactJS'} progress={80} backgroundColor={'#EFB467'} textColor={'#ffffff'}/>
 
 type SkillProps = {
     title: string;
     progress: number;
-    color: string;
+    backgroundColor: string;
+    textColor?: string;
 }
 
 const Skill: React.FC<SkillProps> = (props: SkillProps) => {
-    const { title, progress, color } = props;
+    const { title, progress, backgroundColor, textColor } = props;
   return (
     <>
         <Container>
             <Title>{title}</Title>
-            
+
             <ProgressContainer>
-                <Progress progress={progress} color={color}/>
+                <Percentage progress={progress} backgroundColor={backgroundColor} textColor={textColor}>{progress}%</Percentage>
+                <Progress progress={progress} backgroundColor={backgroundColor}/>
             </ProgressContainer>
         </Container>
     </>

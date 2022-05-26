@@ -1,70 +1,95 @@
 import styled from 'styled-components';
-import ColorScheme from '../../styles/colorScheme';
 
-const { darkMode, lightMode } = ColorScheme;
+type isOpened = {
+	isOpen: boolean;
+};
 
-export const Container = styled.div`
-	background-color: ${lightMode.primary};
-	color: ${lightMode.text};
+export const Container = styled.nav`
+	padding: 0 32px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.2);
 	position: absolute;
 	top: 0;
 	left: 0;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: space-between;
-	border-right: 2px solid ${lightMode.text};
-	width: 150px;
-	height: 100%;
-	padding: 10px;
-
-	& > div {
-		width: 100%;
-	}
-
-	&.dark {
-		background-color: ${darkMode.primary};
-		color: ${darkMode.text};
-		border-right: 2px solid ${darkMode.text};
+	right: 0;
+	z-index: 20;
+	background-color: #fff;
+	@media screen and (max-width: 900px) {
+		display: grid;
+		grid-template-columns: 50% 50%;
+		align-items: center;
 	}
 `;
 
-export const Title = styled.div`
-    font-size: 2em;
-`;
-
-export const Image = styled.div``;
-
-export const Links = styled.div``;
-
-export const Social = styled.div`
+export const NavigationLogo = styled.div`
+	padding: 16px 0;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 26px;
 	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
+	&:hover { cursor: pointer; }
+    & > h3 {
+        margin: 0;
+    }
 `;
 
-export const SocialItem = styled.div`
-	padding: 10px;
-	width: 60px;
-	height: 60px;
-	cursor: pointer;
-	transition: all 0.3s ease-in-out;
-
-	&:hover {
-		transform: scale(1.05);
+export const NavigationItems = styled.div<isOpened>`
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	align-items: center;
+	position: relative;
+	@media screen and (max-width: 900px) {
+		grid-template-columns: 100%;
+		overflow: hidden;
+		width: 100%;
+		max-height: ${({ isOpen }) => (isOpen ? '300px' : '0')};
+		transition: all 0.3s ease;
+		grid-column: 1 / span 2;
+		align-items: left;
 	}
 `;
 
-export const Item = styled.div`
+export const Item = styled.a`
+    padding: 0 10px;
 	text-align: center;
-	width: 100%;
-	padding: 10px 0;
+	text-decoration: none;
+	font-size: 20px;
+	transition: all 0.3s ease;
 	cursor: pointer;
-	transition: all 0.3s ease-in-out;
+	text-underline-offset: 5px;
+	color: #000;
+	&:hover { color: #EFB467; }
+    @media screen and (max-width: 900px) {
+        text-align: left;
+        padding: 10px;
+    }
+`;
 
-	&:hover {
-		transform: scale(1.1);
+export const Hamburger = styled.div`
+	border: 0;
+	outline: 0;
+	background: transparent;
+	display: none;
+	flex-direction: column;
+	cursor: pointer;
+	width: 40px;
+	height: 30px;
+	justify-self: end;
+	span {
+		height: 2px;
+		width: 25px;
+		background: #000;
+		margin-bottom: 5px;
+	}
+	@media screen and (max-width: 900px) {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 `;
+
+export const Lines = styled.span``;

@@ -1,7 +1,4 @@
 import styled from 'styled-components';
-import ColorScheme from '../../styles/colorScheme';
-
-const { darkMode, lightMode } = ColorScheme;
 
 export const Container = styled.div`
 	display: flex;
@@ -24,7 +21,7 @@ export const TechnologyContainer = styled.div`
 
 	margin: 0;
 	padding: 15px;
-	background-color: ${lightMode.background};
+	background-color: #fff;
 
 	height: 160px;
 	width: 160px;
@@ -33,7 +30,6 @@ export const TechnologyContainer = styled.div`
 	border-radius: 10px;
 
     transform-style: preserve-3d;
-    /* transition: all 0.1s ease-in-out; */
 
 	&:hover {
 		border: 2px solid #808080;
@@ -47,16 +43,21 @@ export const TechnologyContainer = styled.div`
 
 		& > div {
 			opacity: 1;
-            transform: translateZ(20px);
+            transform: translateZ(50px);
 		}
 	}
+
+    @media (max-width: 415px) {
+        height: 160px;
+	    width: 100%;
+    }
 `;
 
 export const TechnologyImage = styled.img`
     max-width: 50%;
     max-height: 50%;
     user-select: none;
-	transition: all 0.3s ease-in-out;
+	transition: all 0.2s ease-in-out;
 `;
 
 export const TechnologyTitle = styled.div`
@@ -68,18 +69,14 @@ export const TechnologyTitle = styled.div`
 	justify-content: center;
 	align-items: center;
     user-select: none;
-	transition: all 0.3s ease-in-out;
+	transition: all 0.2s ease-in-out;
 `;
 
 export const GridBreak = styled.div`
     flex-basis: 100%;
     height: 0;
 
-    @media screen and (max-width: 768px) {
+    @media (max-width: 768px) {
         display: none;
     }
 `;
-
-export const Title = styled.div``;
-export const Span = styled.span``;
-export const Paragraph = styled.p``;
