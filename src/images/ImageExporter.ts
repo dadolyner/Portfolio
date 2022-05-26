@@ -1,4 +1,5 @@
 export const Logo = require('./Logo.png')
+export const Test = require('./Test.png')
 
 // Socials
 // Light
