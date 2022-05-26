@@ -8,8 +8,8 @@ const Projects: React.FC = () => {
     React.useEffect(() => {
 		TechnologyTilt('project', {
 			max: 15,
-			perspective: 1000,
-			scale: 1.05,
+			perspective: 1300,
+			scale: 1,
 			speed: 500,
 		});
 	}, []);

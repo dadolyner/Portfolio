@@ -17,23 +17,23 @@ const Project: React.FC<ProjectProps> = (props: ProjectProps) => {
 	return (
 		<>
 			<Container className='project'>
-				<ProjectImage className='image'>
+				<ProjectImage>
 					<img src={image} alt={title}  />
 				</ProjectImage>
 
-				<Content className='content'>
-					<ProjectTimeAgo className='timeago'>{TimeAgo(date)}</ProjectTimeAgo>
-					<ProjectTitle className='title'>{title}</ProjectTitle>
-					<ProjectDescription className='desc'>{description}</ProjectDescription>
+				<Content>
+					<ProjectTimeAgo>{TimeAgo(date)}</ProjectTimeAgo>
+					<ProjectTitle>{title}</ProjectTitle>
+					<ProjectDescription>{description}</ProjectDescription>
 
-                    <ProjectTags className='tags'>
+                    <ProjectTags>
                         {tags.map((tag) => { return <Tag key={tag}>{tag}</Tag> })}
                     </ProjectTags>
 
-                    <LinksContainer className='links'>
-					    <VisitProject className='button' onClick={() => (window.location.href = link)}>Open Project</VisitProject>
+                    <LinksContainer>
+					    <VisitProject onClick={() => (window.location.href = link)}>Open Project</VisitProject>
                         <div></div>
-                        <Github className='github'>G</Github>
+                        <Github>G</Github>
                     </LinksContainer>
 				</Content>
 			</Container>

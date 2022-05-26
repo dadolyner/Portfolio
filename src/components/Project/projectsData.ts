@@ -4,11 +4,11 @@ export const ProjectsData = [
     {
         id: 1,
         image: Test,
-        date: '2022-05-26 14:00:00',
-        title: 'Quotastic',
+        date: '2022-05-26 21:00:00',
+        title: 'Arkamadona',
         description: 'Explore the world of fantastic quotes',
         link: '/quotastic',
-        tags: ['TypeScript', 'ReactJS', 'NestJS', 'Postgres', 'TypeORM', 'Docker'],
+        tags: ['TypeScript', 'ReactJS', 'NestJS'],
     },
     {
         id: 2,

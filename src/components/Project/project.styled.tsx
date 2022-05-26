@@ -44,23 +44,14 @@ export const Container = styled.div`
             #ff0000 100%  )
             repeat 0% 0% / 300% 100%;
             position: absolute;
-            inset: -5px;
+            inset: -20px;
             border-radius: 10px;
             filter: blur(5px);
+            transform: translateZ(-100px);
             z-index: -1;
             animation: ${rgbAnimatedBackground} 5s linear infinite;
         }
     } */
-
-    &.image {}
-    
-    &.content.timeago {}
-    &.content.title {}
-    &.content.desc {}
-    &.content.tags {}
-
-    &.links.button {}
-    &.links.github {}
 `;
 
 export const ProjectImage = styled.div`
