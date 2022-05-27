@@ -15,11 +15,11 @@ type ProjectProps = {
 		background: string;
 		backgroundHover: string;
 	};
-	projectTags: {
+	projectTags: Array<{
 		name: string;
 		textColor: string;
 		backColor: string;
-	}[];
+	}>;
 };
 
 const Project: React.FC<ProjectProps> = (props: ProjectProps) => {

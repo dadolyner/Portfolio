@@ -29,7 +29,7 @@ export const ProjectsData = [
             {
                 name: 'NestJS',
                 textColor: '#fff',
-                backColor: '#a00',
+                backColor: '#e0234e',
             },
             {
                 name: 'PostgreSQL',
@@ -76,7 +76,7 @@ export const ProjectsData = [
             {
                 name: 'NestJS',
                 textColor: '#fff',
-                backColor: '#a00',
+                backColor: '#e0234e',
             },
             {
                 name: 'PostgreSQL',
