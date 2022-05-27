@@ -1,8 +1,9 @@
 import React from 'react';
 import { Container, Title, ProgressContainer, Progress, Percentage } from './skill.styled';
-// <Skill title={'ReactJS'} progress={80} backgroundColor={'#EFB467'} textColor={'#ffffff'}/>
+// <Skill type={'skill'} title={'ReactJS'} progress={80} backgroundColor={'#EFB467'} textColor={'#ffffff'}/>
 
 type SkillProps = {
+    type: 'tech' | 'skill';
     title: string;
     progress: number;
     backgroundColor: string;
@@ -10,15 +11,15 @@ type SkillProps = {
 }
 
 const Skill: React.FC<SkillProps> = (props: SkillProps) => {
-    const { title, progress, backgroundColor, textColor } = props;
+    const { type, title, progress, backgroundColor, textColor } = props;
   return (
     <>
-        <Container>
+        <Container className={type} progress={progress}>
             <Title>{title}</Title>
 
             <ProgressContainer>
-                <Percentage progress={progress} backgroundColor={backgroundColor} textColor={textColor}>{progress}%</Percentage>
-                <Progress progress={progress} backgroundColor={backgroundColor}/>
+                <Percentage className={type} progress={progress} backgroundColor={backgroundColor} textColor={textColor}>{progress}%</Percentage>
+                <Progress className={type} progress={progress} backgroundColor={backgroundColor}/>
             </ProgressContainer>
         </Container>
     </>

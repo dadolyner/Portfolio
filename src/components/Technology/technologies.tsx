@@ -18,10 +18,11 @@ const Technologies: React.FC = () => {
 		<>
 			<Container>
 				{TexhnologyData.map((tech) => {
-					if (tech.title.includes('Break')) return <GridBreak key={tech.title} />;
+                    const { title, image, progress, backgroundColor, textColor } = tech;
+					if (title.includes('Break')) return <GridBreak key={title} />;
 					else {
-						if (tech.title.includes('Break')) return null;
-						else return <Technology key={tech.title} title={tech.title} image={tech.image} />;
+						if (title.includes('Break')) return null;
+						else return <Technology key={title} title={title} image={image} progress={progress} backgroundColor={backgroundColor} textColor={textColor} details={false}/>;
 					}
 				})}
 			</Container>

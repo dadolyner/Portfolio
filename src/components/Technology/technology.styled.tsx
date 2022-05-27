@@ -31,9 +31,8 @@ export const TechnologyContainer = styled.div`
 
     transform-style: preserve-3d;
 
-	&:hover {
+    &.detailed {
 		border: 2px solid #808080;
-		transform: scale(1.1);
         cursor: pointer;
 
 		& > img {
@@ -46,6 +45,24 @@ export const TechnologyContainer = styled.div`
             transform: translateZ(50px);
 		}
 	}
+
+    &.hoverable {
+        &:hover {
+            border: 2px solid #808080;
+            transform: scale(1.1);
+            cursor: pointer;
+            
+		    & > img {
+                filter: blur(5px) saturate(150%);
+		    	transform: scale(1.2);
+		    }
+
+		    & > div {
+                opacity: 1;
+                transform: translateZ(50px);
+		    }
+	    }
+    }
 
     @media (max-width: 415px) {
         height: 160px;
@@ -63,7 +80,10 @@ export const TechnologyImage = styled.img`
 export const TechnologyTitle = styled.div`
 	opacity: 0;
 	position: absolute;
+    top: 15px;
 	font-size: 1.5em;
+    width: 90%;
+    text-align: center;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
