@@ -10,7 +10,7 @@ const Navigation: React.FC = () => {
 			<Container>
 				<NavigationLogo onClick={() => {}}><h3>David Škulj</h3></NavigationLogo>
 
-				<Hamburger onClick={() => setIsOpen(!isOpen)}>
+				<Hamburger className={isOpen ? 'opened' : ''} onClick={() => setIsOpen(!isOpen)}>
 					<Lines />
 					<Lines />
 					<Lines />

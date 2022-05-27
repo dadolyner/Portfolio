@@ -16,7 +16,7 @@ export const Container = styled.nav`
 	right: 0;
 	z-index: 20;
 	background-color: #fff;
-	@media screen and (max-width: 900px) {
+	@media screen and (max-width: 600px) {
 		display: grid;
 		grid-template-columns: 50% 50%;
 		align-items: center;
@@ -42,7 +42,7 @@ export const NavigationItems = styled.div<isOpened>`
 	grid-template-columns: repeat(3, 1fr);
 	align-items: center;
 	position: relative;
-	@media screen and (max-width: 900px) {
+	@media screen and (max-width: 600px) {
 		grid-template-columns: 100%;
 		overflow: hidden;
 		width: 100%;
@@ -57,13 +57,13 @@ export const Item = styled.a`
     padding: 0 10px;
 	text-align: center;
 	text-decoration: none;
-	font-size: 20px;
+	font-size: 16px;
 	transition: all 0.3s ease;
 	cursor: pointer;
 	text-underline-offset: 5px;
 	color: #000;
 	&:hover { color: #EFB467; }
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 600px) {
         text-align: left;
         padding: 10px;
     }
@@ -79,17 +79,28 @@ export const Hamburger = styled.div`
 	width: 40px;
 	height: 30px;
 	justify-self: end;
+    opacity: 1;
 	span {
 		height: 2px;
 		width: 25px;
 		background: #000;
 		margin-bottom: 5px;
 	}
-	@media screen and (max-width: 900px) {
+
+    &.opened {
+        & > span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        & > span:nth-child(2) { opacity: 0; }
+        & > span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    }
+
+	@media screen and (max-width: 600px) {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 	}
 `;
 
-export const Lines = styled.span``;
+export const Lines = styled.span`
+    transform-origin: center;
+    transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
+`;
