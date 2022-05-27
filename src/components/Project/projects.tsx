@@ -5,21 +5,32 @@ import { ProjectsContainer } from './project.styled';
 import { ProjectsData } from './projectsData';
 
 const Projects: React.FC = () => {
-    React.useEffect(() => {
-		TechnologyTilt('project', {
-			max: 15,
-			perspective: 1300,
-			scale: 1,
-			speed: 500,
-		});
-	}, []);
+    // React.useEffect(() => {
+	// 	TechnologyTilt('project', {
+	// 		max: 15,
+	// 		perspective: 2000,
+	// 		scale: 1.1,
+	// 		speed: 500,
+	// 	});
+	// }, []);
 
     return (
     <>
         <ProjectsContainer>
             {ProjectsData.map((project) => {
-                const { id, image, date, title, description, link, tags } = project;
-                return <Project key={id} image={image} date={date} title={title} description={description} link={link} tags={tags} />
+                const { id, projectImage, projectReleaseDate, projectTitle, projectDescription, projectWebLink, projectGitLink, projectColors, projectTags } = project;
+                
+                return <Project 
+                    key={id} 
+                    projectImage={projectImage} 
+                    projectReleaseDate={projectReleaseDate} 
+                    projectTitle={projectTitle} 
+                    projectDescription={projectDescription} 
+                    projectWebLink={projectWebLink} 
+                    projectGitLink={projectGitLink} 
+                    projectColors={projectColors} 
+                    projectTags={projectTags} 
+                />
             })}
         </ProjectsContainer>
     </>

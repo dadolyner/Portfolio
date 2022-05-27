@@ -1,5 +1,4 @@
 export const Logo = require('./Logo.png')
-export const Test = require('./Test.png')
 
 // Socials
 // Light
@@ -29,3 +28,8 @@ export const Figma = require('./Technology/Figma.png')
 export const VSCode = require('./Technology/VSCode.png')
 export const Docker = require('./Technology/Docker.png')
 export const Aws = require('./Technology/Aws.png')
+
+// Projects
+export const GithubLogo = require('./Projects/github.png')
+export const Quotastic = require('./Projects/quotastic.png')
+export const Geotagger = require('./Projects/geotagger.png')
