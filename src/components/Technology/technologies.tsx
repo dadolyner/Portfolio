@@ -4,7 +4,12 @@ import Technology from './technology';
 import { TexhnologyData } from './technologyData';
 import { TechnologyTilt } from './technologyTilt';
 
-const Technologies: React.FC = () => {
+type TechnologiesProps = {
+    details: boolean;
+}
+
+const Technologies: React.FC<TechnologiesProps> = (props: TechnologiesProps) => {
+    const { details } = props;
 	React.useEffect(() => {
 		TechnologyTilt('technology', {
 			max: 15,
@@ -22,7 +27,7 @@ const Technologies: React.FC = () => {
 					if (title.includes('Break')) return <GridBreak key={title} />;
 					else {
 						if (title.includes('Break')) return null;
-						else return <Technology key={title} title={title} image={image} progress={progress} backgroundColor={backgroundColor} textColor={textColor} details={false}/>;
+						else return <Technology key={title} title={title} image={image} progress={progress} backgroundColor={backgroundColor} textColor={textColor} details={details}/>;
 					}
 				})}
 			</Container>
