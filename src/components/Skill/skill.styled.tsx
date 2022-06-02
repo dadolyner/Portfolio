@@ -26,7 +26,7 @@ export const Container = styled.div<ProgressProps>`
         &:hover {
             & > div {
                 & > div {
-                    animation: 2s ease-in-out 0s 1 ${props => progressSlide(props.progress)};
+                    animation: 2s ease 0s 1 ${props => progressSlide(props.progress)};
                 }
             }
         }
