@@ -30,7 +30,7 @@ export const Container = styled.div`
     transition: all 0.3s ease-in-out;
     
     &:hover {
-        transform: scale(1.05);
+        transform: scale(1.03);
         &::after {
             content:"";
             background: linear-gradient(45deg,

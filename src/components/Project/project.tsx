@@ -8,7 +8,8 @@ type ProjectProps = {
 	projectTitle: string;
 	projectDescription: string;
 	projectWebLink: string;
-	projectGitLink: string;
+	projectGitLinkFE: string;
+	projectGitLinkBE: string;
 	projectColors: {
 		text: string;
 		textHover: string;
@@ -23,7 +24,7 @@ type ProjectProps = {
 };
 
 const Project: React.FC<ProjectProps> = (props: ProjectProps) => {
-	const { projectImage, projectReleaseDate, projectTitle, projectDescription, projectWebLink, projectGitLink, projectColors, projectTags } = props;
+	const { projectImage, projectReleaseDate, projectTitle, projectDescription, projectWebLink, projectGitLinkFE, projectGitLinkBE, projectColors, projectTags } = props;
 	const { text, textHover, background, backgroundHover } = projectColors;
 
 	return (
@@ -48,7 +49,7 @@ const Project: React.FC<ProjectProps> = (props: ProjectProps) => {
 							View Project
 						</VisitProject>
 						<div></div>
-						<Github onClick={() => window.open(projectGitLink)} style={{ border: `3px solid ${textHover}` }}></Github>
+						<Github onClick={() =>{ window.open(projectGitLinkFE); window.open(projectGitLinkBE);}} style={{ border: `3px solid ${textHover}` }}></Github>
 					</LinksContainer>
 				</Content>
 			</Container>
