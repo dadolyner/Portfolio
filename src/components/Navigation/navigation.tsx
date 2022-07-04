@@ -18,8 +18,9 @@ const Navigation: React.FC = () => {
 
 				<NavigationItems isOpen={isOpen}>
 					<Item onClick={() => { setIsOpen(false) }}>Home</Item>
-					<Item onClick={() => { setIsOpen(false) }}>Settings</Item>
-					<Item onClick={() => { setIsOpen(false) }}>Logout</Item>
+					<Item onClick={() => { setIsOpen(false) }}>Projects</Item>
+					<Item onClick={() => { setIsOpen(false) }}>Technologies</Item>
+					<Item onClick={() => { setIsOpen(false) }}>About me</Item>
 				</NavigationItems>
 			</Container>
 		</>
