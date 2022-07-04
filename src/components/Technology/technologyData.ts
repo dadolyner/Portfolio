@@ -46,7 +46,7 @@ export const TexhnologyData = [
     {
         title: 'Fastify',
         image: Fastify,
-        progress: 0,
+        progress: 85,
         backgroundColor: '#000',
         textColor: '#fff',
     },

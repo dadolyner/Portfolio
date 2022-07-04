@@ -36,15 +36,16 @@ export const Container = styled.div<ProgressProps>`
 export const Title = styled.h4`
     margin: 0;
     padding: 10px;
-    font-size: 18px;
+    font-size: 20px;
 `;
 
 export const ProgressContainer = styled.div`
     position: relative;
     width: 100%;
-    height: 10px;
+    height: 20px;
     background-color: #ddd;
     margin: 0 0 70px 0;
+    border-radius: 5px;
 
     &.tech {
         display: flex;
@@ -55,7 +56,7 @@ export const ProgressContainer = styled.div`
 
 export const Percentage = styled.span<ProgressProps>`
     position: absolute;
-    background-color: ${props => props.backgroundColor};
+    background: ${props => props.backgroundColor};
     color: ${props => props.textColor};
     padding: 5px 10px;
     border-radius: 5px;
@@ -78,8 +79,9 @@ export const Percentage = styled.span<ProgressProps>`
 
 export const Progress = styled.div<ProgressProps>`
     width: ${props => props.progress}%;
-    background-color: ${props => props.backgroundColor};
+    background: ${props => props.backgroundColor};
     box-shadow: 0 0 2px 0 ${props => props.backgroundColor};
     color: ${props => props.textColor};
     height: 100%;
+    border-radius: 5px;
 `;

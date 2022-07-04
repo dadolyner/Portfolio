@@ -5,7 +5,7 @@ import { TexhnologyData } from './technologyData';
 import { TechnologyTilt } from './technologyTilt';
 
 type TechnologiesProps = {
-    details: boolean;
+    details?: boolean;
 }
 
 const Technologies: React.FC<TechnologiesProps> = (props: TechnologiesProps) => {
