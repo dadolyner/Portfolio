@@ -1,6 +1,8 @@
 import styled, { keyframes } from 'styled-components';
 
-const spinner = keyframes`
+type LoadingProps = { theme: { color: string; background: string; }}
+
+const spinning = keyframes`
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 `;
@@ -21,11 +23,11 @@ export const Container = styled.div`
     z-index: 9000;
 `
 
-export const LoadingCircle = styled.div`
+export const LoadingCircle = styled.div<LoadingProps>`
     width: 50px;
     height: 50px;
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid #de8667;
+    border: 5px solid ${props => props.theme.background};
+    border-top: 5px solid ${props => props.theme.color};
     border-radius: 50%;
-    animation: ${spinner} 1.5s linear infinite;
+    animation: ${spinning} 1.5s linear infinite;
 `
