@@ -1,0 +1,69 @@
+@font-face {
+    font-family: Poppins;
+    src: local('Poppins'), url('./Fonts/Poppins.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: PoppinsBold;
+    src: local('PoppinsBold'), url('./Fonts/PoppinsBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: PoppinsBoldItalic;
+    src: local('PoppinsBoldItalic'), url('./Fonts/PoppinsBoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: PoppinsExtraLight;
+    src: local('PoppinsExtraLight'), url('./Fonts/PoppinsExtraLight.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: PoppinsExtraLightItalic;
+    src: local('PoppinsExtraLightItalic'), url('./Fonts/PoppinsExtraLightItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: PoppinsItalic;
+    src: local('PoppinsItalic'), url('./Fonts/PoppinsItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: PoppinsLight;
+    src: local('PoppinsLight'), url('./Fonts/PoppinsLight.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: PoppinsLightItalic;
+    src: local('PoppinsLightItalic'), url('./Fonts/PoppinsLightItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: PoppinsMedium;
+    src: local('PoppinsMedium'), url('./Fonts/PoppinsMedium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: PoppinsMediumItalic;
+    src: local('PoppinsMediumItalic'), url('./Fonts/PoppinsMediumItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: PoppinsSemiBold;
+    src: local('PoppinsSemiBold'), url('./Fonts/PoppinsSemiBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: PoppinsSemiBoldItalic;
+    src: local('PoppinsSemiBoldItalic'), url('./Fonts/PoppinsSemiBoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: PoppinsThin;
+    src: local('PoppinsThin'), url('./Fonts/PoppinsThin.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: PoppinsThinItalic;
+    src: local('PoppinsThinItalic'), url('./Fonts/PoppinsThinItalic.ttf') format('truetype');
+}
