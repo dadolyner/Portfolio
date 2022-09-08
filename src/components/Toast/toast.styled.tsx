@@ -1,12 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
 const transparentStyleColors = {
-	background: {
-		success: '#00aa00',
- 		error: '#f20300',
-		warning: '#ffa500',
-		info: '#0099ff',
-	},
+	background: { success: '#00aa00', error: '#f20300', warning: '#ffa500', info: '#0099ff' },
 	text: '#000',
 	success: '#fff',
 	error: '#fff',
@@ -41,13 +36,11 @@ export const ToastPopup = styled.div`
 	font-size: 16px;
 	background-color: #fff;
 	display: grid;
-	grid-template-columns: 15% 70% 15%;
+	grid-template-columns: 20% 70% 10%;
 	transition: all 0.5s ease;
 	z-index: 100;
 
-	&.hide {
-		animation: 0.2s ease-in-out 0s 1 ${slideToRight};
-	}
+	&.hide { animation: 0.2s ease-in-out 0s 1 ${slideToRight}; }
 
 	@media only screen and (max-width: 460px) {
 		min-width: 96%;
@@ -77,7 +70,7 @@ export const Close = styled.div`
 	&.info { color: ${transparentStyleColors.background.info}; }
 `;
 
-export const ImageContainer = styled.div`
+export const IconContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -89,7 +82,7 @@ export const ImageContainer = styled.div`
 	&.info { background-color: ${transparentStyleColors.background.info}; }
 `;
 
-export const Image = styled.div`
+export const Icon = styled.div`
 	&.success {
 		box-sizing: border-box;
 		position: relative;
@@ -219,20 +212,4 @@ export const ContentText = styled.p`
 	font-size: 16px;
 	margin: 0;
 	text-align: left;
-`;
-
-export const LoadingBar = styled.div`
-	height: 4px;
-	width: 100%;
-	grid-column: 1 / span 2;
-	transition: all 0.5 ease-in-out;
-	
-	& > div {
-		height: 5px;
-		&.success { background-color: ${transparentStyleColors.background.success}; }
-		&.error { background-color: ${transparentStyleColors.background.error}; }
-		&.info { background-color: ${transparentStyleColors.background.info}; }
-		&.warning { background-color: ${transparentStyleColors.background.warning}; }
-		transition: all 0.3 ease-in-out;
-	}
 `;
