@@ -1,20 +1,5 @@
 import styled from 'styled-components';
-
-export const BackgroundContainer = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.3 );
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-`;
+import '../Typeography/typeography.css';
 
 export const Container = styled.div`
     position: relative;
@@ -22,12 +7,14 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 420px;
-    min-height: 460px;
+    width: 300px;
+    min-height: 420px;
     box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.2);
     background-color: #fff;
     border-radius: 10px;
     z-index: 10;
+    font-family: Poppins;
+    padding: 10px;
 `;
 
 export const CloseButton = styled.div`
@@ -57,9 +44,7 @@ export const Result = styled.div`
     user-select: none;
     cursor: pointer !important;
 
-    &:active {
-        background-color: #eee;
-    }
+    &:active { background-color: #eee; }
 `;
 
 export const RangeMasterContainer = styled.div`
@@ -67,8 +52,8 @@ export const RangeMasterContainer = styled.div`
     flex-direction: column;
     font-size: 16px;
     font-weight: bold;
-    border: 1px solid black;
-    border-radius: 5px;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
     padding: 5px 10px;
     width: 90%;
     margin-bottom: 10px;
@@ -79,8 +64,6 @@ export const RangeContainer = styled.div`
     justify-content: space-between;
     align-items: center;
 `;
-
-export const RangeCounter = styled.div``;
 
 export const Range = styled.input`
     width: 80%;
@@ -120,8 +103,8 @@ export const SelectionContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
-    border: 1px solid black;
-    border-radius: 5px;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
     padding: 10px;
     width: 90%;
     text-align: center;
