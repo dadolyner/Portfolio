@@ -43,9 +43,10 @@ const DadoCalendar: React.FC = () => {
                 </WeekDaysContainer>
 
                 <DaysContainer>
-                    { days.map((day: any, index: number) => {
+                    { days.map((oneDay: any, index: number) => {
+                        const { day, events, holidays, weekInMonth } = oneDay;
                         return (
-                        <Day key={day + ' ' + index} className={day.events.length > 0 ? 'event' : ''} style={{gridArea: day.day + day.weekInMonth}}> {index+1} </Day>
+                            <Day key={day + ' ' + index} className={events.length > 0 ? 'event' : ''} style={{gridArea: day + weekInMonth}}> { index + 1 } </Day>
                         )
                     })}
                 </DaysContainer>

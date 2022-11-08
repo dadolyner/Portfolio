@@ -5,7 +5,7 @@ import '../Typeography/typeography.css';
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 420px;
     padding: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     position: relative;
@@ -15,7 +15,7 @@ export const ButtonsContainer = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    width: 420px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 `;
@@ -114,7 +114,8 @@ export const DaysContainer = styled.div`
         'Monday2 Tuesday2 Wednesday2 Thursday2 Friday2 Saturday2 Sunday2'
         'Monday3 Tuesday3 Wednesday3 Thursday3 Friday3 Saturday3 Sunday3'
         'Monday4 Tuesday4 Wednesday4 Thursday4 Friday4 Saturday4 Sunday4'
-        'Monday5 Tuesday5 Wednesday5 Thursday5 Friday5 Saturday5 Sunday5';
+        'Monday5 Tuesday5 Wednesday5 Thursday5 Friday5 Saturday5 Sunday5'
+        'Monday6 Tuesday6 Wednesday6 Thursday6 Friday6 Saturday6 Sunday6';
     gap: 5px;
 `;
 
