@@ -1,61 +1,55 @@
 import styled from 'styled-components';
 
 // CONTAINER AND MAIN CONTENT
-type PopupSettings = {
-	size: number;
-};
+type PopupSettings = { size: number; };
+type PopupButton = { background: string; backgroundHover: string; border: string; borderHover: string; text: string; textHover: string; }
+
 export const PopupContainer = styled.div`
-	&.hidden {
-		display: none;
-		opacity: 0;
-	}
-	&.shown {
-		display: flex;
-	}
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: fixed;
 	top: 0;
 	left: 0;
 	height: 100vh;
 	width: 100vw;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    min-width: 250px;
 	background: rgba(0, 0, 0, 0.5);
+    font-family: Arial, Helvetica, sans-serif;
+    z-index: 100;
+
+    &.shown { display: flex; }
+	&.hidden { display: none; }
 `;
 export const PopupContent = styled.div<PopupSettings>`
 	position: relative;
-	border-radius: 5px;
-	overflow: hidden;
-	max-height: 95%;
+    background: #fff;
+	max-height: 90%;
 	max-width: 90%;
 	width: ${(props) => props.size}px;
-	background: white;
+	border-radius: 5px;
+	overflow: hidden;
 `;
 
 // HEADER AND TITLE
 export const HeaderBar = styled.div`
 	position: relative;
 	background: #ccc;
-	height: 24px;
-	&:hover {
-		cursor: move;
-	}
+	height: 25px;
 `;
 export const CloseButton = styled.div`
 	position: absolute;
 	right: 0;
 	top: 0;
 	background: #f00;
-	width: 25px;
-	height: 24px;
-	text-align: center;
-	font-size: 18px;
 	color: #fff;
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	font-size: 22px;
 	user-select: none;
-	&:hover {
-		background: #b00;
-		cursor: pointer;
-	}
+    cursor: pointer;
+	&:hover { background: #b00; }
 `;
 export const Title = styled.h1`
 	text-align: center;
@@ -63,14 +57,18 @@ export const Title = styled.h1`
 `;
 
 // FORM SETUP
-export const Form = styled.form`
+export const Form = styled.form<PopupSettings>`
 	display: grid;
-	grid-template-columns: 30% 70%;
+	grid-template-columns: ${(props) => props.size > 460 ? '30% 70%' : '100%' };
 	row-gap: 10px;
-	padding: 10px;
-	margin-right: 10px;
+	padding: 0 30px 0 10px;
+	margin-right: 5px;
 	max-height: 60vh;
 	overflow: auto;
+
+    @media screen and (max-width: 460px) {
+		grid-template-columns: 100%;
+	}
 
 	::-webkit-scrollbar-track,
 	::-webkit-scrollbar-track {
@@ -98,12 +96,17 @@ export const Form = styled.form`
 
 // INPUT ELEMENTS
 export const Label = styled.label`
- 	margin: auto 0;
-	padding: 0 10px;
+ 	margin: auto auto;
 
 	&.left { text-align: left; }
 	&.center { text-align: center; }
 	&.right { text-align: right; }
+
+    @media screen and (max-width: 460px) {
+        width: 100%;
+        padding-left: 10px;
+		text-align: left !important;
+	}
 `;
 export const Input = styled.input`
 	border: 0;
@@ -112,14 +115,15 @@ export const Input = styled.input`
 	border-radius: 5px;
 	width: 100%;
 	height: 42px;
-	padding: 6px 10px;
+    padding: 0 10px;
 	font-size: 16px;
 	transition: all 0.3s ease-in-out;
 
 	&[type='range'] { padding: 0; }
 	&[type='checkbox'] { width: 40px; margin-left: 10px; }
-	&[type='button'] { cursor: pointer; &:hover { transform: scale(1.01)}}
-	&[type='color'] { cursor: pointer; &:hover { transform: scale(1.01)} }
+	&[type='button'] { width: calc(100% + 24px); cursor: pointer;}
+	&[type='color'] { padding: 0 2px; width: calc(100% + 24px); cursor: pointer; }
+    &[type='file'] { padding-top: 6px; height: 30px; cursor: pointer; }
 `;
 export const TextArea = styled.textarea`
 	border: 0;
@@ -146,7 +150,7 @@ export const Select = styled.select`
 	border: 2px solid #ccc;
 	border-radius: 5px;
 	background-color: transparent;
-	width: 100%;
+	width: calc(100% + 24px);
 	height: 42px;
 	padding: 6px 9px;
 	font-size: 16px;
@@ -163,22 +167,25 @@ export const ButtonsContainer = styled.div`
 	align-items: center;
 	margin: 20px 0;
 `;
-export const Button = styled.button`
+export const Button = styled.button<PopupButton>`
 	border: 0;
 	outline: 0;
-	border: 2px solid #ccc;
+	border: 2px solid ${(props) => props.color || '#000'};
 	border-radius: 5px;
 	font-size: 18px;
 	width: fit-content;
+    color: ${(props) => props.color || '#000'};
+    background: ${(props) => props.background};
 	height: 40px;
 	padding: 0 20px;
 	margin: 0 5px;
 	user-select: none;
 	transition: all 0.3s ease-in-out;
+    cursor: pointer;
 	&:hover {
-		background: #aaa;
-		cursor: pointer;
-		transform: scale(1.01);
+        border: 2px solid ${(props) => props.borderHover};
+        color: ${(props) => props.textHover};
+		background: ${(props) => props.backgroundHover};
 	}
 `;
 

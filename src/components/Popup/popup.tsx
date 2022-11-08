@@ -1,246 +1,297 @@
 import * as React from 'react';
 import { PopupContainer, PopupContent, HeaderBar, CloseButton, Title, Form, Label, Input, TextArea, Html, Select, Divider, ButtonsContainer, Button } from './popup.styled';
+import { DadoPopup } from './popup.interface';
 
-type DefaultPopupSettings = {
-	active?: boolean;
-	id: string;
-	theme?: {
-		primary: string;
-		primaryDarken: string;
-		secondary: string;
-		secondaryDarken: string;
-		text: string;
-	};
-	size: number;
-	title: string;
-	labelAligment: "left" | "center" | "right";
-	topClose?: () => any;
-	inputs?: Array<{
-		type: string;
-		label: string;
-		name: string;
+// <Popup
+//     key={'testPopup'}
+//     active={true}
+//     title={'Test Popup'}
+//     size={700}
+//     theme={popupTheme}
+//     labelAligment={'center'}
+//     onClose={() => false}
+//     inputs={[
+//         { type: 'text', name: 'text', label: 'Text' },
+//         { type: 'number', name: 'number', label: 'Number' },
+//         { type: 'email', name: 'email', label: 'Email' },
+//         { type: 'password', name: 'password', label: 'Password' },
+//         { type: 'tel', name: 'tel', label: 'Tel' },
+//         { type: 'textarea', name: 'textarea', label: 'Textarea' },
+//         { type: 'color', name: 'color', label: 'Color' },
+//         { type: 'url', name: 'url', label: 'Url' },
+//         { type: 'date', name: 'date', label: 'Date' },
+//         { type: 'time', name: 'time', label: 'Time' },
+//         { type: 'datetime-local', name: 'datetime-local', label: 'Datetime-local' },
+//         { type: 'button', name: 'button', label: 'Button', value: 'Button', onClick: () => console.log("Foot") },
+//         { type: 'dropdown', name: 'dropdown', label: 'Dropdown', options: [{ optionValue: 'Test Value', optionLabel: 'Test Label' }] },
+//         { type: 'dropdown-search', name: 'dropdown-search', label: 'Dropdown-search', options: [{ optionValue: 'Test Value', optionLabel: 'Test Label' }] },
+//         { type: 'html', name: 'html', label: 'Html' },
+//         { type: 'file', name: 'file', label: 'File' },
+//         { type: 'range', name: 'range', label: 'Range' },
+//         { type: 'checkbox', name: 'checkbox', label: 'Checkbox' }
+// 	]}
+// bottomButtons={[{ name: 'confirm', value: 'Confirm', theme: buttonTheme,onClick: () => {} }]}
+// onConfirm={(values) => { console.log(values) }}
+// />
 
-		value?: string | number;
-		placeholder?: string;
-		
-		options?: string[];
-		html?: string;
-		min?: number;
-		max?: number;
-		color?: string;
-		backgroundColor?: string;
-		margin?: number;
-		onClick?: () => any;
-		onChange?: () => any;
-	}>;
-	bottomButtons?: Array<{
-		name: string;
-		text: string;
-		color?: string;
-		backgroundColor?: string;
-		onClick?: () => any;
-	}>;
-	confirmButtonText: string;
-	RetrieveValues: (object: any) => any;
-};
+const uuid = (version: number): string => {
+    return `xxxxxxxx-xxxx-${version}xxx-yxxx-xxxxxxxxxxxx`.replace(/[xy]/g, (char) => {
+        const randomNumber = Math.random() * 16 | 0
+        const uuid = (char === 'x') ? (randomNumber) : (randomNumber & 3 | 8)
+        return uuid.toString(16)
+    })
+}
+const id = uuid(4);
 
-const Popup: React.FC<DefaultPopupSettings> = (props: DefaultPopupSettings) => {
-	const { id, theme, size, title, labelAligment, inputs } = props
-	const { primary, primaryDarken, text } = theme
-
-	// INPUTS VALUES
-	const [confirmed, setConfirmed] = React.useState('');
-	const [textValue, setTextValue] = React.useState('');
-	const [numberValue, setNumberValue] = React.useState(0);
-	const [passwordValue, setPasswordValue] = React.useState('');
-	const [textareaValue, setTextareaValue] = React.useState('');
-	const [dropdownValue, setDropdownValue] = React.useState('');
-	const [dropdownSearchValue, setDropdownSearchValue] = React.useState('');
-	const [checkboxValue, setCheckboxValue] = React.useState(false);
-	const [colorValue, setColorValue] = React.useState('');
-	const [urlValue, setUrlValue] = React.useState('');
-	const [fileValue, setFileValue] = React.useState('');
-	const [dateValue, setDateValue] = React.useState('');
-	const [timeValue, setTimeValue] = React.useState('');
-	const [datetimeValue, setDateTimeValue] = React.useState('');
-	const [rangeValue, setRangeValue] = React.useState('');
-
-	//EVENTS
-	const handleConfirmed = (confirmed: string) =>  setConfirmed(confirmed);
-	React.useEffect(() => { handleConfirmed(props.active ? 'shown' : 'hidden') }, [ props.active ]);
-
-	// INPUT CHANGING VALUES
-	const handleTextValueChange = (text: string) =>  setTextValue(text);
-	const handleNumberValueChange = (number: number) =>  setNumberValue(number);
-	const handlePasswordValueChange = (password: string) =>  setPasswordValue(password);
-	const handleTextareaValueChange = (textarea: string) =>  setTextareaValue(textarea);
-	const handleDropdownValueChange = (dropdown: string) =>  setDropdownValue(dropdown);
-	const handleDropdownSearchValueChange = (dropdown_search: string) =>  setDropdownSearchValue(dropdown_search);
-	const handleCheckboxValueChange = (checked: boolean) =>  setCheckboxValue(checked);
-	const handleColorValueChange = (color: string) =>  setColorValue(color);
-	const handleUrlValueChange = (url: string) =>  setUrlValue(url);
-	const handleFileValueChange = (file: string) =>  setFileValue(file);
-	const handleDateValueChange = (date: string) =>  setDateValue(date);
-	const handleTimeValueChange = (time: string) =>  setTimeValue(time);
-	const handleDateTimeValueChange = (datetime: string) =>  setDateTimeValue(datetime);
-	const handleRangeValueChange = (range: string) =>  setRangeValue(range);
-	
-	// ON CONFIRM BUTTON CLICK
-	const PopupConfirm = () => {
-		const output:Object = {
-			textValue: textValue,
-			numberValue: numberValue,	
-			passwordValue: passwordValue,
-			textareaValue: textareaValue,
-			dropdownValue: dropdownValue,
-			dropdownSearchValue: dropdownSearchValue,
-			checkboxValue: checkboxValue,
-			colorValue: colorValue,
-			urlValue: urlValue,
-			fileValue: fileValue,
-			dateValue: dateValue,
-			rangeValue: rangeValue,
-		}
-		handleConfirmed('hidden');
-		return output
-	}
+// POPUP
+const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
+    const { active, title, size, theme, labelAligment, groups, inputs, bottomButtons, onLoad, onClose, onConfirm} = props
+	const { bg, border, text } = theme
+    
+    const [dataOutput, setDataOutput] = React.useState({} as any);
+    const handleChange = (event: any) => setDataOutput((prevState: any) => ({ ...prevState, [event.target.name]: event.target.value }));
+    const handleFileChange = (event: any) => setDataOutput((prevState: any) => ({ ...prevState, [event.target.name]: event.target.files[0] }));
+	const PopupConfirm = () => { return dataOutput; }
+    React.useEffect(() => { if(onLoad) onLoad() } , []);
 
 	return (
 		<>
-			<PopupContainer id={id} className={confirmed === 'hidden' ? 'hidden' : 'shown'}>
-				<PopupContent size={size} style={{backgroundColor: primary, color: text, borderColor: primaryDarken}}>
-					{props.topClose && 
-						<HeaderBar style={{ backgroundColor: primaryDarken }}>
-							<CloseButton onClick={() => props.topClose()}>&times;</CloseButton>
-						</HeaderBar>
-					}	
+			<PopupContainer id={id} className={active ? 'shown' : 'hidden'}>
+				<PopupContent size={size} style={{ backgroundColor: bg, color: text, borderColor: border }}>
+					<HeaderBar style={{ background: border }}>
+                        <CloseButton onClick={() => onClose()}>&times;</CloseButton>
+                    </HeaderBar>
+
 					<Title>{title}</Title>
 
-					<Form>
-						{inputs.map((input) => {
-							const { name, label, type, options, value, placeholder, color, backgroundColor, html, min, max } = input
+					<Form size={size}>
+						{ inputs.map((input) => {
+							const { type } = input
 							switch (type) {
-								case 'text': 
-									return ( <>
-										<Label className={labelAligment} style={{color: text}}>{label}</Label>
-										<Input id={name} type={type} name={name} value={textValue ? textValue : value} placeholder={placeholder} onChange={(e) => handleTextValueChange(e.target.value)} style={{backgroundColor: primary, color: text, borderColor: primaryDarken}}/>
-									</> );
+                                case 'text': {
+                                    const { name, label, value, placeholder } = input
+									return (
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    </>
+                                    );
+                                }
 								
-								case 'number': 
-									return ( <>
-										<Label className={labelAligment} style={{color: text}}>{label}</Label>
-										<Input id={name} type={type} name={name} value={numberValue ? numberValue : value} placeholder={placeholder} onChange={(e) => handleNumberValueChange(Number(e.target.value))} style={{backgroundColor: primary, color: text, borderColor: primaryDarken}}/>
-									</> );
+								case 'number': {
+                                    const { name, label, value, placeholder } = input
+									return ( 
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    </>
+                                    );
+                                }
 
-								case 'password': 
-									return ( <>
-										<Label className={labelAligment} style={{color: text}}>{label}</Label>
-										<Input id={name} type={type} name={name} value={passwordValue ? passwordValue : value} placeholder={placeholder} onChange={(e) => handlePasswordValueChange(e.target.value)} style={{backgroundColor: primary, color: text, borderColor: primaryDarken}}/>
-									</> );
+                                case 'email': {
+                                    const { name, label, value, placeholder } = input
+									return ( 
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    </>
+                                    );
+                                }
 
-								case 'color': 
-									return ( <>
-										<Label className={labelAligment} style={{color: text}}>{label}</Label>
-										<Input id={name} type={type} name={name} value={colorValue ? colorValue : value} placeholder={placeholder} onChange={(e) => handleColorValueChange(e.target.value)} style={{backgroundColor: primary, color: text, borderColor: primaryDarken}}/>
-									</> );
+								case 'password': {
+                                    const { name, label, value, placeholder } = input
+									return ( 
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    </>
+                                    );
+                                }
 
-								case 'button': 
-									return ( <>
-										<Label className={labelAligment} style={{color: text}}>{label}</Label>
-										<Input id={name} type={type} name={name} value={value ? value : ''} placeholder={placeholder}  onClick={() => input.onClick()} style={{backgroundColor: backgroundColor, color: color ? color : text}}/>
-									</> );
+                                case 'tel': {
+                                    const { name, label, value, placeholder } = input
+									return ( 
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    </>
+                                    );
+                                }
 
-								case 'textarea': 
-									return ( <>
-										<Label className={labelAligment} style={{color: text}}>{label}</Label>
-										<TextArea id={name} name={name} value={textareaValue ? textareaValue : value} placeholder={placeholder} onChange={(e) => handleTextareaValueChange(e.target.value)} style={{backgroundColor: primary, color: text, borderColor: primaryDarken}}/>
-									</> );
+                                case 'textarea': {
+                                    const { name, label, value, placeholder } = input
+									return (
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+									    	<TextArea key={name} id={name} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    </>
+                                    );
+                                }
 
-								case 'dropdown': 
-									return ( <>
-										<Label className={labelAligment} style={{color: text}}>Test Dropdown:</Label>
-										<Select onChange={(e) => handleDropdownValueChange(e.target.value)} style={{backgroundColor: primary, color: text, borderColor: primaryDarken}}>
-											{options.map((option) => {return <option value={option}>{option}</option>;})}
-										</Select>
-									</> );
+								case 'color': {
+                                    const { name, label, value, placeholder } = input
+									return ( 
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+									    	<Input id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    </>
+                                    );
+                                }
 
-								case 'dropdown-search':
-									return ( <>
-										<Label className={labelAligment} style={{color: text}}>Test Searchable Select:</Label>
-										<Input list={id + 'dropdownItemsList'} onChange={(e) => handleDropdownSearchValueChange(e.target.value)} style={{backgroundColor: primary, color: text, borderColor: primaryDarken}}/>
-										<datalist id={id + 'dropdownItemsList'}>
-											{options.map((option) => {return <option value={option}>{option}</option>;})}
-										</datalist>
-									</> );
+                                case 'url': {
+                                    const { name, label, value, placeholder } = input
+									return (
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    </>
+                                    );
+                                }
 
-								case 'checkbox': 
-									return ( <>
-										<Label className={labelAligment} style={{color: text}}>{label}</Label>
-										<Input id={name} type={type} name={name} placeholder={placeholder} checked={checkboxValue} onChange={(e) => handleCheckboxValueChange(e.target.checked)}/>
-									</> );
+                                case 'date': {
+                                    const { name, label, value, placeholder } = input
+									return (
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    </>
+                                    );
+                                }
 
-								case 'html': 
-									return ( <>
-										<Label></Label>
-										<Html dangerouslySetInnerHTML={{ __html: html }} style={{backgroundColor: primary, color: text, borderColor: primaryDarken}}></Html>
-									</>);
 
-								case 'url': 
-									return ( <>
-										<Label className={labelAligment} style={{color: text}}>{label}</Label>
-										<Input id={name} type={type} name={name} value={urlValue ? urlValue : value} placeholder={placeholder} onChange={(e) => handleUrlValueChange(e.target.value)} style={{backgroundColor: primary, color: text, borderColor: primaryDarken}}/>
-									</> );
+								case 'time': {
+                                    const { name, label, value, placeholder } = input
+									return (
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    </>
+                                    );
+                                }
 
-								case 'file':
-								return ( <>
-									<Label className={labelAligment} style={{color: text}}>{label}</Label>
-									<Input id={name} type={type} name={name} value={fileValue ? fileValue : value} placeholder={placeholder} onChange={(e) => handleFileValueChange(e.target.value)} style={{backgroundColor: primary, color: text, borderColor: primaryDarken}}/>
-									</> );
 
-								case 'date': 
-									return ( <>
-										<Label className={labelAligment} style={{color: text}}>{label}</Label>
-										<Input id={name} type={type} name={name} value={dateValue ? dateValue : value} placeholder={placeholder} onChange={(e) => handleDateValueChange(e.target.value)} style={{backgroundColor: primary, color: text, borderColor: primaryDarken}}/>
-									</> );
+								case 'datetime-local': {
+                                    const { name, label, value, placeholder } = input
+									return (
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    </>
+                                    );
+                                }
 
-								case 'time': 
-									return ( <>
-										<Label className={labelAligment} style={{color: text}}>{label}</Label>
-										<Input id={name} type={type} name={name} value={timeValue ? timeValue : value} placeholder={placeholder} onChange={(e) => handleTimeValueChange(e.target.value)} style={{backgroundColor: primary, color: text, borderColor: primaryDarken}}/>
-									</> );
+								case 'button': {
+                                    const { type, name, label, value, color, onClick } = input
+									return (
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+									    	<Input key={name} id={name} type={type} name={name} value={value ? value : ''} onClick={() => onClick()} style={{ backgroundColor: color ? color : bg, color: text, borderColor: border }}/>
+									    </>
+                                    );
+                                }
 
-								case 'datetime-local': 
-									return ( <>
-										<Label className={labelAligment} style={{color: text}}>{label}</Label>
-										<Input id={name} type={type} name={name} value={datetimeValue ? datetimeValue : value} placeholder={placeholder} onChange={(e) => handleDateTimeValueChange(e.target.value)} style={{backgroundColor: primary, color: text, borderColor: primaryDarken}}/>
-									</> );
+								case 'dropdown': {
+                                    const { name, label, value, options } = input
+									return (
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+									    	<Select key={name} id={name} name={name} value={dataOutput[name] ? dataOutput[name] : value} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}>
+                                                <option key={"noneSelectedItemDropdown"} value={""}>Select an item ...</option>
+                                                { options.map((option) => { return ( <><option key={option.optionValue} value={option.optionValue}>{option.optionLabel}</option></> ) }) }
+									    	</Select>
+									    </>
+                                    );
+                                }
 
-								case 'range': 
-									return ( <>
-										<Label className={labelAligment} style={{color: text}}>{label} ({rangeValue ? rangeValue : 0})</Label> 
-										<Input id={name} type={type} name={name} value={rangeValue ? rangeValue : value} step={1} min={min} max={max} placeholder={placeholder} onChange={(e) => handleRangeValueChange(e.target.value)} style={{backgroundColor: primary, color: text, borderColor: primaryDarken}}/>
-									</> );
+								case 'dropdown-search': {
+                                    const { name, label, value, options } = input
+									return (
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+									    	<Input key={id + name} id={name} name={name} type={'text'} list={id + name + 'dropdownItemsList'} value={dataOutput[name] ? dataOutput[name] : value} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    	<datalist key={name} id={id + name + 'dropdownItemsList'}>
+                                                <option key={"noneSelectedItemDropdownSearch"} value={""}>Select an item ...</option>
+                                                { options.map((option) => { return ( <><option key={option.optionLabel} value={option.optionLabel}>{option.optionValue}</option></> ) }) }
+									    	</datalist>
+									    </>
+                                    );
+                                }
 
-								case 'spacer': 
-									return ( <>
-										<Label className={labelAligment} style={{color: text}}></Label>
-										<Divider />
-									</>);
+                                case 'html': {
+                                    const {name, label, value} = input
+									return (
+                                        <>
+									    	<Label key={label}></Label>
+									    	<Html key={name} dangerouslySetInnerHTML={{ __html: value }} style={{ backgroundColor: bg, color: text, borderColor: border }}></Html>
+									    </>
+                                    );
+                                }
+
+                                case 'file': {
+                                    const { type, name, label } = input
+								    return (
+                                        <>
+								        	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+								        	<Input key={name} id={name} type={type} name={name} onChange={(e) => handleFileChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+								        </>
+                                    );
+                                }
+
+                                case 'range': {
+                                    const { type, name, label, value, min, max } = input
+									return (
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label} ({dataOutput[name] ? dataOutput[name] : 0})</Label> 
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} step={1} min={min ? min : 0} max={max ? max : 100} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    </>
+                                    );
+                                }
+
+								case 'checkbox': {
+                                    const { type, name, label, value } = input
+									return (
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
+									    	<Input key={name} id={name} type={type} name={name} checked={dataOutput[name] ? value : dataOutput[name]} onChange={(e) => handleChange(e)}/>
+									    </>
+                                    );
+                                }
+
+								case 'spacer': {
+                                    const { name, label } = input
+									return (
+                                        <>
+									    	<Label key={label} className={labelAligment} style={{color: text}}></Label>
+									    	<Divider key={name}/>
+									    </>
+                                    );
+                                }
 								
 								default: 
-									return null;
+									return (<></>);
 							}
 						})}
 					</Form>
 
 					<ButtonsContainer>
-						{props.bottomButtons.map((button) => {
-							const { name, text, backgroundColor, color, onClick } = button;
-							return( <>
-								<Button onClick={() => { if(name === 'confirm'){ onClick(); props.RetrieveValues(PopupConfirm()); } else onClick() }} style={{backgroundColor: backgroundColor, color: color}}>
-									{text}
-								</Button>
-							</>) 
+						{ bottomButtons.map((button) => {
+							const { name, value, theme, onClick } = button;
+                            const { bg, bgHover, text, textHover, border, borderHover} = theme;
+							return (
+                                <>
+                                    <Button 
+                                        key={name}
+                                        background={bg}
+                                        backgroundHover={bgHover}
+                                        border={border}
+                                        borderHover={borderHover}
+                                        text={text}
+                                        textHover={textHover}
+                                        onClick={() => { if (name === 'confirm') { onClick(); onConfirm(PopupConfirm()) } else onClick() }}>
+                                            {value}
+                                    </Button>
+                                </>
+                            )
 						})}
 					</ButtonsContainer>
 				</PopupContent>
