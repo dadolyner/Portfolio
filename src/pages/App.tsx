@@ -1,10 +1,9 @@
 import React from 'react';
-import '../styles/GlobalStyles.css';
 
 const App: React.FC = () => {
 	return (
 		<>
-            
+
 		</>
 	);
 };

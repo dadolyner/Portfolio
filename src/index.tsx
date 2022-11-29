@@ -5,8 +5,4 @@ import App from './pages/App';
 const root = ReactDOM.createRoot(
   document.getElementById('dadoPortfolio') as HTMLElement
 );
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+root.render(<App />);

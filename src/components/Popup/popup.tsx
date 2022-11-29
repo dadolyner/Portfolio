@@ -2,6 +2,8 @@ import * as React from 'react';
 import { PopupContainer, PopupContent, HeaderBar, CloseButton, Title, Form, Label, Input, TextArea, Html, Select, Divider, ButtonsContainer, Button } from './popup.styled';
 import { DadoPopup } from './popup.interface';
 
+// const popupTheme = { background: '#fff', border: '#000', text: '#000' }
+// const buttonTheme = { background: '#fff', backgroundHover: '#000', border: '#000', borderHover: '#fff', text: '#000', textHover: '#fff' }
 // <Popup
 //     key={'testPopup'}
 //     active={true}
@@ -45,8 +47,8 @@ const id = uuid(4);
 
 // POPUP
 const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
-    const { active, title, size, theme, labelAligment, groups, inputs, bottomButtons, onLoad, onClose, onConfirm} = props
-	const { bg, border, text } = theme
+    const { active, title, size, theme, labelAligment, inputs, bottomButtons, onLoad, onClose, onConfirm} = props
+	const { background, border, text } = theme
     
     const [dataOutput, setDataOutput] = React.useState({} as any);
     const handleChange = (event: any) => setDataOutput((prevState: any) => ({ ...prevState, [event.target.name]: event.target.value }));
@@ -57,7 +59,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 	return (
 		<>
 			<PopupContainer id={id} className={active ? 'shown' : 'hidden'}>
-				<PopupContent size={size} style={{ backgroundColor: bg, color: text, borderColor: border }}>
+				<PopupContent size={size} style={{ backgroundColor: background, color: text, borderColor: border }}>
 					<HeaderBar style={{ background: border }}>
                         <CloseButton onClick={() => onClose()}>&times;</CloseButton>
                     </HeaderBar>
@@ -73,7 +75,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return (
                                         <>
 									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
 									    </>
                                     );
                                 }
@@ -83,7 +85,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return ( 
                                         <>
 									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
 									    </>
                                     );
                                 }
@@ -93,7 +95,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return ( 
                                         <>
 									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
 									    </>
                                     );
                                 }
@@ -103,7 +105,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return ( 
                                         <>
 									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
 									    </>
                                     );
                                 }
@@ -113,7 +115,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return ( 
                                         <>
 									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
 									    </>
                                     );
                                 }
@@ -123,7 +125,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return (
                                         <>
 									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<TextArea key={name} id={name} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    	<TextArea key={name} id={name} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
 									    </>
                                     );
                                 }
@@ -133,7 +135,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return ( 
                                         <>
 									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    	<Input id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
 									    </>
                                     );
                                 }
@@ -143,7 +145,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return (
                                         <>
 									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
 									    </>
                                     );
                                 }
@@ -153,7 +155,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return (
                                         <>
 									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
 									    </>
                                     );
                                 }
@@ -164,7 +166,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return (
                                         <>
 									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
 									    </>
                                     );
                                 }
@@ -175,7 +177,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return (
                                         <>
 									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
 									    </>
                                     );
                                 }
@@ -185,7 +187,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return (
                                         <>
 									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={name} id={name} type={type} name={name} value={value ? value : ''} onClick={() => onClick()} style={{ backgroundColor: color ? color : bg, color: text, borderColor: border }}/>
+									    	<Input key={name} id={name} type={type} name={name} value={value ? value : ''} onClick={() => onClick()} style={{ backgroundColor: color ? color : background, color: text, borderColor: border }}/>
 									    </>
                                     );
                                 }
@@ -195,7 +197,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return (
                                         <>
 									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Select key={name} id={name} name={name} value={dataOutput[name] ? dataOutput[name] : value} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}>
+									    	<Select key={name} id={name} name={name} value={dataOutput[name] ? dataOutput[name] : value} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}>
                                                 <option key={"noneSelectedItemDropdown"} value={""}>Select an item ...</option>
                                                 { options.map((option) => { return ( <><option key={option.optionValue} value={option.optionValue}>{option.optionLabel}</option></> ) }) }
 									    	</Select>
@@ -208,7 +210,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return (
                                         <>
 									    	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={id + name} id={name} name={name} type={'text'} list={id + name + 'dropdownItemsList'} value={dataOutput[name] ? dataOutput[name] : value} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    	<Input key={id + name} id={name} name={name} type={'text'} list={id + name + 'dropdownItemsList'} value={dataOutput[name] ? dataOutput[name] : value} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
 									    	<datalist key={name} id={id + name + 'dropdownItemsList'}>
                                                 <option key={"noneSelectedItemDropdownSearch"} value={""}>Select an item ...</option>
                                                 { options.map((option) => { return ( <><option key={option.optionLabel} value={option.optionLabel}>{option.optionValue}</option></> ) }) }
@@ -222,7 +224,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return (
                                         <>
 									    	<Label key={label}></Label>
-									    	<Html key={name} dangerouslySetInnerHTML={{ __html: value }} style={{ backgroundColor: bg, color: text, borderColor: border }}></Html>
+									    	<Html key={name} dangerouslySetInnerHTML={{ __html: value }} style={{ backgroundColor: background, color: text, borderColor: border }}></Html>
 									    </>
                                     );
                                 }
@@ -232,7 +234,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 								    return (
                                         <>
 								        	<Label key={label} className={labelAligment} style={{color: text}}>{label}</Label>
-								        	<Input key={name} id={name} type={type} name={name} onChange={(e) => handleFileChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+								        	<Input key={name} id={name} type={type} name={name} onChange={(e) => handleFileChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
 								        </>
                                     );
                                 }
@@ -242,7 +244,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 									return (
                                         <>
 									    	<Label key={label} className={labelAligment} style={{color: text}}>{label} ({dataOutput[name] ? dataOutput[name] : 0})</Label> 
-									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} step={1} min={min ? min : 0} max={max ? max : 100} onChange={(e) => handleChange(e)} style={{ backgroundColor: bg, color: text, borderColor: border }}/>
+									    	<Input key={name} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} step={1} min={min ? min : 0} max={max ? max : 100} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
 									    </>
                                     );
                                 }
@@ -276,13 +278,13 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 					<ButtonsContainer>
 						{ bottomButtons.map((button) => {
 							const { name, value, theme, onClick } = button;
-                            const { bg, bgHover, text, textHover, border, borderHover} = theme;
+                            const { background, backgroundHover, text, textHover, border, borderHover} = theme;
 							return (
                                 <>
                                     <Button 
                                         key={name}
-                                        background={bg}
-                                        backgroundHover={bgHover}
+                                        background={background}
+                                        backgroundHover={backgroundHover}
                                         border={border}
                                         borderHover={borderHover}
                                         text={text}

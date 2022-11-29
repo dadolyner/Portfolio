@@ -2,9 +2,12 @@ export type DadoPopup = {
     active?: boolean;
     title: string;
     size: number;
-    theme?: { bg: string; border: string; text: string; };
+    theme?: { 
+        background: string; 
+        border: string; 
+        text: string; 
+    };
     labelAligment: "left" | "center" | "right";
-    groups?: DadoPopupInputGroup[] | null;
     inputs?: DadoPopupInputOptions[];
     bottomButtons?: DadoPopupBottomButton[];
     onLoad?: () => any;
@@ -245,23 +248,17 @@ type DadoSpacer = {
     marginTop?: number;
     marginBottom?: number;
 }
-
-type DadoPopupInputGroup = {
-    name: string;
-    label: string;
-    inputs: DadoPopupInputOptions[]
-}
 type DadoPopupInputOptions = DadoTextInput | DadoNumberInput | DadoEmailInput | DadoPasswordInput | DadoTelephoneInput | DadoTextareaInput | DadoColorInput | DadoUrlInput | DadoDateInput | DadoTimeInput | DadoDatetimeLocalInput | DadoButtonInput | DadoDropdownInput | DadoDropdownSearchInput | DadoHtmlInput | DadoFileInput | DadoRangeInput | DadoCheckboxInput | DadoSpacer;
 type DadoPopupBottomButton = {
     name: string;
     value?: string;
     theme?: { 
-        bg?: string;
-        bgHover?: string;
-        text?: string;
-        textHover?: string;
+        background?: string;
+        backgroundHover?: string;
         border?: string;
         borderHover?: string;
+        text?: string;
+        textHover?: string;
     };
     onClick?: () => any;
 }
