@@ -2,6 +2,7 @@ export type DadoPopup = {
     active?: boolean;
     title: string;
     size: number;
+    defaultTheme?: boolean;
     theme?: { 
         background: string; 
         border: string; 

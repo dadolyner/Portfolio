@@ -22,7 +22,6 @@ export const PopupContainer = styled.div`
 	&.hidden { display: none; }
 `;
 export const PopupContent = styled.div<PopupSettings>`
-	position: relative;
     background: #fff;
 	max-height: 90%;
 	max-width: 90%;
@@ -61,7 +60,7 @@ export const Form = styled.form<PopupSettings>`
 	display: grid;
 	grid-template-columns: ${(props) => props.size > 460 ? '30% 70%' : '100%' };
 	row-gap: 10px;
-	padding: 0 30px 0 10px;
+	padding: 0 30px 0 20px;
 	margin-right: 5px;
 	max-height: 60vh;
 	overflow: auto;
@@ -131,8 +130,9 @@ export const TextArea = styled.textarea`
 	border: 2px solid #ccc;
 	border-radius: 5px;
 	width: 100%;
+    min-height: 20px;
 	height: 100px;
-	padding: 6px 10px;
+	padding: 10px 10px;
 	font-size: 16px;
 	resize: vertical;
 	transition: all 0.3 ease-in-out;
@@ -143,6 +143,7 @@ export const Html = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+    width: 103%;
 `;
 export const Select = styled.select`
 	border: 0;
@@ -170,11 +171,11 @@ export const ButtonsContainer = styled.div`
 export const Button = styled.button<PopupButton>`
 	border: 0;
 	outline: 0;
-	border: 2px solid ${(props) => props.color || '#000'};
+	border: 2px solid ${(props) => props.border};
 	border-radius: 5px;
 	font-size: 18px;
 	width: fit-content;
-    color: ${(props) => props.color || '#000'};
+    color: ${(props) => props.text};
     background: ${(props) => props.background};
 	height: 40px;
 	padding: 0 20px;
