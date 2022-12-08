@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { PopupContainer, PopupContent, HeaderBar, CloseButton, Title, Form, Label, Input, TextArea, Html, Select, Divider, ButtonsContainer, Button } from './popup.styled';
+import { PopupContainer, PopupContent, HeaderBar, CloseButton, Title, GroupsContainer, Group, Form, Label, Input, TextArea, Html, Select, Divider, ButtonsContainer, Button } from './popup.styled';
 import { DadoPopup } from './popup.interface';
 
 // <Popup
@@ -9,32 +9,51 @@ import { DadoPopup } from './popup.interface';
 // 	    size={700}
 // 	    labelAligment={'center'}
 // 	    onClose={() => console.log('Closed clicked')}
-// 	    inputs={[
-// 	    	{ type: 'text', name: 'text', label: 'Text' },
-// 	    	{ type: 'number', name: 'number', label: 'Number' },
-// 	    	{ type: 'email', name: 'email', label: 'Email' },
-// 	    	{ type: 'password', name: 'password', label: 'Password' },
-// 	    	{ type: 'tel', name: 'tel', label: 'Tel' },
-// 	    	{ type: 'textarea', name: 'textarea', label: 'Textarea' },
-// 	    	{ type: 'color', name: 'color', label: 'Color' },
-// 	    	{ type: 'url', name: 'url', label: 'Url' },
-// 	    	{ type: 'date', name: 'date', label: 'Date' },
-// 	    	{ type: 'time', name: 'time', label: 'Time' },
-// 	    	{ type: 'datetime-local', name: 'datetime-local', label: 'Datetime-local' },
-// 	    	{ type: 'button', name: 'button', label: 'Button', value: 'Button', onClick: () => console.log('Button click') },
-// 	    	{ type: 'dropdown', name: 'dropdown', label: 'Dropdown', options: [{ optionValue: 'Test Value', optionLabel: 'Test Label' }] },
-// 	    	{ type: 'dropdown-search', name: 'dropdown-search', label: 'Dropdown-search', options: [{ optionValue: 'Test Value', optionLabel: 'Test Label' }] },
-// 	    	{ type: 'html', name: 'html', label: 'Html', value: `<hr style="width: 100%;"/><h1>HTML</h1><hr style="width: 100%;"/>` },
-// 	    	{ type: 'file', name: 'file', label: 'File' },
-// 	    	{ type: 'range', name: 'range', label: 'Range' },
-// 	    	{ type: 'checkbox', name: 'checkbox', label: 'Checkbox' },
-// 	    ]}
-// 	    bottomButtons={[{ name: 'confirm', value: 'Confirm', onClick: () => {} }]}
+//      groups={[
+//          {
+//              name: 'Group 1',
+//              inputs: [
+//                  { type: 'text', name: 'text', label: 'Text' },
+//                  { type: 'number', name: 'number', label: 'Number' },
+//                  { type: 'email', name: 'email', label: 'Email' },
+//                  { type: 'password', name: 'password', label: 'Password' },
+//                  { type: 'tel', name: 'tel', label: 'Tel' },
+//                  { type: 'textarea', name: 'textarea', label: 'Textarea' },
+//                  { type: 'color', name: 'color', label: 'Color' },
+//                  { type: 'url', name: 'url', label: 'Url' },
+//                  { type: 'date', name: 'date', label: 'Date' },
+//                  { type: 'time', name: 'time', label: 'Time' },
+//                  { type: 'datetime-local', name: 'datetime-local', label: 'Datetime-local' },
+//                  { type: 'button', name: 'button', label: 'Button', value: 'Button', onClick: () => console.log('Button click') },
+//                  { type: 'dropdown', name: 'dropdown', label: 'Dropdown', options: [{ optionValue: 'Test Value', optionLabel: 'Test Label' }] },
+//                  { type: 'dropdown-search', name: 'dropdown-search', label: 'Dropdown-search', options: [{ optionValue: 'Test Value', optionLabel: 'Test Label' }] },
+//                  { type: 'html', name: 'html', label: 'Html', value: `<hr style="width: 100%;"/><h1>HTML</h1><hr style="width: 100%;"/>` },
+//                  { type: 'file', name: 'file', label: 'File' },
+//                  { type: 'range', name: 'range', label: 'Range' },
+//                  { type: 'checkbox', name: 'checkbox', label: 'Checkbox' },
+//              ]
+//          },
+//          {
+//              name: 'Group 2',
+//              inputs: [
+//                  { type: 'email', name: 'login_email', label: 'Email' },
+//                  { type: 'password', name: 'login_password', label: 'Password' },
+//              ],
+//              theme: { background: '#000', border: '#fff', text: '#fff' }
+//          }
+// 
+//      ]}                 
+// 	    bottomButtons={[
+//          { name: 'confirm', value: 'Confirm', onClick: () => {} },
+//          { name: 'close', value: 'Close', onClick: () => {} },
+//      ]}
 // 	    onConfirm={(values) => { console.log('Confirm clicked', values) }}
 // />
 
 const popupTheme = { background: '#fff', border: '#aaa', text: '#000' }
 const buttonsTheme = { background: '#4568da', backgroundHover: '#ffffff', border: '#ffffff', borderHover: '#4568da', text: '#ffffff', textHover: '#4568da' }
+const groupTheme = { background: '#fff', border: '#aaa', text: '#000' }
+
 const uuid = (): string => {
     return `xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx`.replace(/[xy]/g, (char) => {
         const randomNumber = Math.random() * 16 | 0
@@ -46,15 +65,39 @@ const id = uuid();
 
 // POPUP
 const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
-    const { active, title, size, labelAligment, inputs, bottomButtons, onLoad, onClose, onConfirm} = props
+    const { active, title, size, labelAligment, groups, bottomButtons, onLoad, onClose, onConfirm} = props
     const { background, border, text } = props.theme || popupTheme
     
+    const [unClickedRefs, setUnClickedRefs] = React.useState([] as any);
     const [dataOutput, setDataOutput] = React.useState({} as any);
-    const handleChange = (event: any) => setDataOutput((prevState: any) => ({ ...prevState, [event.target.name]: event.target.value }))
+    const handleChange = (event: any) => {
+        const { name } = event.target
+        const ref = inputRefs[name].current
+        const index = unClickedRefs.indexOf(ref)
+        if(index === -1) setUnClickedRefs((prevState: any) => [...prevState, ref])
+        setDataOutput((prevState: any) => ({ ...prevState, [event.target.name]: event.target.value }))
+    }
     const handleFileChange = (event: any) => setDataOutput((prevState: any) => ({ ...prevState, [event.target.name]: event.target.files[0] }))
-    const handleCheckboxChange = (event: any) =>  setDataOutput((prevState: any) => ({ ...prevState, [event.target.name]: event.target.checked }))
-	const PopupConfirm = () => { return dataOutput; }
+    const handleCheckboxChange = (event: any) => setDataOutput((prevState: any) => ({ ...prevState, [event.target.name]: event.target.checked }))
+    const PopupConfirm = () => { return dataOutput; }
     React.useEffect(() => { if(onLoad) onLoad() } , []);
+
+    const inputRefs = groups.reduce((acc: any, group: any) => {
+        const name = group.inputs.reduce((acc: any, input: any) => {
+            acc[input.name] = React.createRef()
+            return acc
+        }, {})
+        return { ...acc, ...name }
+    }, {})
+
+    React.useEffect(() => {
+        const lastInput = unClickedRefs[unClickedRefs.length - 1]
+        if(lastInput) {
+            inputRefs[lastInput.name].current.scrollIntoView({ behavior: 'smooth', block: 'center'})
+            inputRefs[lastInput.name].current.focus()
+            inputRefs[lastInput.name].current.showPicker()
+        }
+    }, [unClickedRefs])
 
 	return (
 		<>
@@ -66,214 +109,204 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 
 					<Title key={uuid()}>{title}</Title>
 
-					<Form key={uuid()} size={size}>
-						{ inputs.map((input) => {
-							const { type } = input
-							switch (type) {
-                                case 'text': {
-                                    const { name, label, value, placeholder } = input
-									return (
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={uuid()} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
-									    </React.Fragment>
-                                    );
-                                }
-								
-								case 'number': {
-                                    const { name, label, value, placeholder } = input
-									return ( 
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={uuid()} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
-									    </React.Fragment>
-                                    );
-                                }
-
-                                case 'email': {
-                                    const { name, label, value, placeholder } = input
-									return ( 
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={uuid()} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
-									    </React.Fragment>
-                                    );
-                                }
-
-								case 'password': {
-                                    const { name, label, value, placeholder } = input
-									return ( 
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={uuid()} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
-									    </React.Fragment>
-                                    );
-                                }
-
-                                case 'tel': {
-                                    const { name, label, value, placeholder } = input
-									return ( 
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={uuid()} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
-									    </React.Fragment>
-                                    );
-                                }
-
-                                case 'textarea': {
-                                    const { name, label, value, placeholder } = input
-									return (
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<TextArea key={uuid()} id={name} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
-									    </React.Fragment>
-                                    );
-                                }
-
-								case 'color': {
-                                    const { name, label, value, placeholder } = input
-									return ( 
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input id={uuid()} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
-									    </React.Fragment>
-                                    );
-                                }
-
-                                case 'url': {
-                                    const { name, label, value, placeholder } = input
-									return (
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={uuid()} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
-									    </React.Fragment>
-                                    );
-                                }
-
-                                case 'date': {
-                                    const { name, label, value, placeholder } = input
-									return (
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={uuid()} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
-									    </React.Fragment>
-                                    );
-                                }
-
-
-								case 'time': {
-                                    const { name, label, value, placeholder } = input
-									return (
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={uuid()} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
-									    </React.Fragment>
-                                    );
-                                }
-
-
-								case 'datetime-local': {
-                                    const { name, label, value, placeholder } = input
-									return (
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={uuid()} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
-									    </React.Fragment>
-                                    );
-                                }
-
-								case 'button': {
-                                    const { type, name, label, value, color, onClick } = input
-									return (
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={uuid()} id={name} type={type} name={name} value={value ? value : ''} onClick={() => onClick()} style={{ backgroundColor: color ? color : background, color: text, borderColor: border }}/>
-									    </React.Fragment>
-                                    );
-                                }
-
-								case 'dropdown': {
-                                    const { name, label, value, options } = input
-									return (
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Select key={uuid()} id={name} name={name} value={dataOutput[name] ? dataOutput[name] : value} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}>
-                                                <option key={uuid()} value={""}>Select an item ...</option>
-                                                { options.map((option) => { return ( <option key={uuid()} value={option.optionValue}>{option.optionLabel}</option> ) }) }
-									    	</Select>
-									    </React.Fragment>
-                                    );
-                                }
-
-								case 'dropdown-search': {
-                                    const { name, label, value, options } = input
-                                    const ref = uuid()
-									return (
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={uuid()} id={name} name={name} type={'text'} list={ref} value={dataOutput[name] ? dataOutput[name] : value} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
-									    	<datalist key={uuid()} id={ref}>
-                                                <option key={uuid()} value={""}>Select an item ...</option>
-                                                { options.map((option) => { return ( <option key={uuid()} value={option.optionLabel}>{option.optionValue}</option> ) }) }
-									    	</datalist>
-									    </React.Fragment>
-                                    );
-                                }
-
-                                case 'html': {
-                                    const { value } = input
-									return (
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()}></Label>
-									    	<Html key={uuid()} dangerouslySetInnerHTML={{ __html: value }} style={{ backgroundColor: background, color: text, borderColor: border }}></Html>
-									    </React.Fragment>
-                                    );
-                                }
-
-                                case 'file': {
-                                    const { type, name, label } = input
-								    return (
-                                        <React.Fragment key={uuid()}>
-								        	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-								        	<Input key={uuid()} id={name} type={type} name={name} onChange={(e) => handleFileChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
-								        </React.Fragment>
-                                    );
-                                }
-
-                                case 'range': {
-                                    const { type, name, label, value, min, max } = input
-									return (
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label} ({dataOutput[name] ? dataOutput[name] : 0})</Label> 
-									    	<Input key={uuid()} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} step={1} min={min ? min : 0} max={max ? max : 100} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
-									    </React.Fragment>
-                                    );
-                                }
-
-								case 'checkbox': {
-                                    const { type, name, label, value } = input
-									return (
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									    	<Input key={uuid()} id={name} type={type} name={name} checked={dataOutput[name] ? dataOutput[name] : value} onChange={(e) => handleCheckboxChange(e)}/>
-									    </React.Fragment>
-                                    );
-                                }
-
-								case 'spacer': {
-									return (
-                                        <React.Fragment key={uuid()}>
-									    	<Label key={uuid()} className={labelAligment} style={{color: text}}></Label>
-									    	<Divider key={uuid()}/>
-									    </React.Fragment>
-                                    );
-                                }
-								
-								default: 
-									return null
-							}
-						})}
-					</Form>
+                    <GroupsContainer key={uuid()}>
+                    { groups.map((group) => {
+                        const { name, inputs, theme } = group
+                        const { background, border, text } = theme || groupTheme
+                        return (
+                            <Group key={uuid()} style={{ backgroundColor: background, color: text, borderColor: border }}>
+                                <h3>{name}</h3>                                                 
+					            <Form key={uuid()} size={size}>
+					            	{ inputs.map((input) => {
+					            		const { type } = input
+					            		switch (type) {
+                                            case 'text': {
+                                                const { name, label, value, placeholder } = input
+									            return (
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+									                	<Input key={uuid()} ref={inputRefs[name]} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
+									                </React.Fragment>
+                                                );
+                                            }							
+					            			case 'number': {
+                                                const { name, label, value, placeholder } = input
+									            return ( 
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+									                	<Input key={uuid()} ref={inputRefs[name]} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
+									                </React.Fragment>
+                                                );
+                                            }
+                                            case 'email': {
+                                                const { name, label, value, placeholder } = input
+									            return ( 
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+									                	<Input key={uuid()} ref={inputRefs[name]} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
+									                </React.Fragment>
+                                                );
+                                            }
+					            			case 'password': {
+                                                const { name, label, value, placeholder } = input
+									            return ( 
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+									                	<Input key={uuid()} ref={inputRefs[name]} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
+									                </React.Fragment>
+                                                );
+                                            }
+                                            case 'tel': {
+                                                const { name, label, value, placeholder } = input
+									            return ( 
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+									                	<Input key={uuid()} ref={inputRefs[name]} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
+									                </React.Fragment>
+                                                );
+                                            }
+                                            case 'textarea': {
+                                                const { name, label, value, placeholder } = input
+									            return (
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+									                	<TextArea key={uuid()} ref={inputRefs[name]} id={name} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} onFocus={(e)=>e.currentTarget.setSelectionRange(e.currentTarget.value.length, e.currentTarget.value.length)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
+									                </React.Fragment>
+                                                );
+                                            }
+					            			case 'color': {
+                                                const { name, label, value, placeholder } = input
+									            return ( 
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+									                	<Input id={uuid()} ref={inputRefs[name]} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
+									                </React.Fragment>
+                                                );
+                                            }
+                                            case 'url': {
+                                                const { name, label, value, placeholder } = input
+									            return (
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+									                	<Input key={uuid()} ref={inputRefs[name]} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
+									                </React.Fragment>
+                                                );
+                                            }
+                                            case 'date': {
+                                                const { name, label, value, placeholder } = input
+									            return (
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+									                	<Input key={uuid()} ref={inputRefs[name]} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
+									                </React.Fragment>
+                                                );
+                                            }
+					            			case 'time': {
+                                                const { name, label, value, placeholder } = input
+									            return (
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+									                	<Input key={uuid()} ref={inputRefs[name]} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
+									                </React.Fragment>
+                                                );
+                                            }
+					            			case 'datetime-local': {
+                                                const { name, label, value, placeholder } = input
+									            return (
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+									                	<Input key={uuid()} ref={inputRefs[name]} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} placeholder={placeholder} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
+									                </React.Fragment>
+                                                );
+                                            }
+					            			case 'button': {
+                                                const { type, name, label, value, color, onClick } = input
+									            return (
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+									                	<Input key={uuid()} ref={inputRefs[name]} id={name} type={type} name={name} value={value ? value : ''} onClick={() => onClick()} style={{ backgroundColor: color ? color : background, color: text, borderColor: border }}/>
+									                </React.Fragment>
+                                                );
+                                            }
+					            			case 'dropdown': {
+                                                const { name, label, value, options } = input
+									            return (
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+									                	<Select key={uuid()} ref={inputRefs[name]} id={name} name={name} value={dataOutput[name] ? dataOutput[name] : value} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}>
+                                                            <option key={uuid()} value={""}>Select an item ...</option>
+                                                            { options.map((option) => { return ( <option key={uuid()} value={option.optionValue}>{option.optionLabel}</option> ) }) }
+									                	</Select>
+									                </React.Fragment>
+                                                );
+                                            }
+					            			case 'dropdown-search': {
+                                                const { name, label, value, options } = input
+                                                const ref = uuid()
+									            return (
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+									                	<Input key={uuid()} ref={inputRefs[name]} id={name} name={name} type={'text'} list={ref} value={dataOutput[name] ? dataOutput[name] : value} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
+									                	<datalist key={uuid()} id={ref}>
+                                                            <option key={uuid()} value={""}>Select an item ...</option>
+                                                            { options.map((option) => { return ( <option key={uuid()} value={option.optionLabel}>{option.optionValue}</option> ) }) }
+									                	</datalist>
+									                </React.Fragment>
+                                                );
+                                            }
+                                            case 'html': {
+                                                const { value } = input
+									            return (
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()}></Label>
+									                	<Html key={uuid()} dangerouslySetInnerHTML={{ __html: value }} style={{ backgroundColor: background, color: text, borderColor: border }}></Html>
+									                </React.Fragment>
+                                                );
+                                            }
+                                            case 'file': {
+                                                const { type, name, label } = input
+								                return (
+                                                    <React.Fragment key={uuid()}>
+								                    	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+								                    	<Input key={uuid()} ref={inputRefs[name]} id={name} type={type} name={name} onChange={(e) => handleFileChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
+								                    </React.Fragment>
+                                                );
+                                            }
+                                            case 'range': {
+                                                const { type, name, label, value, min, max } = input
+									            return (
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label} ({dataOutput[name] ? dataOutput[name] : 0})</Label> 
+									                	<Input key={uuid()} ref={inputRefs[name]} id={name} type={type} name={name} value={dataOutput[name] ? dataOutput[name] : value} step={1} min={min ? min : 0} max={max ? max : 100} onChange={(e) => handleChange(e)} style={{ backgroundColor: background, color: text, borderColor: border }}/>
+									                </React.Fragment>
+                                                );
+                                            }
+					            			case 'checkbox': {
+                                                const { type, name, label, value } = input
+									            return (
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
+									                	<Input key={uuid()} ref={inputRefs[name]} id={name} type={type} name={name} checked={dataOutput[name] ? dataOutput[name] : value} onChange={(e) => handleCheckboxChange(e)} />
+									                </React.Fragment>
+                                                );
+                                            }
+					            			case 'spacer': {
+									            return (
+                                                    <React.Fragment key={uuid()}>
+									                	<Label key={uuid()} className={labelAligment} style={{color: text}}></Label>
+									                	<Divider key={uuid()}/>
+									                </React.Fragment>
+                                                );
+                                            }
+					            			default: 
+					            				return null
+					            		}
+					            	})}
+					            </Form>
+                            </Group>
+                        )
+                    })}
+                    </GroupsContainer>
 
 					<ButtonsContainer key={uuid()}>
 						{ bottomButtons.map((button) => {

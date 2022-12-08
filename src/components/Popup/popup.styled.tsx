@@ -191,13 +191,49 @@ export const Button = styled.button<PopupButton>`
 `;
 
 // GROUPS
+export const GroupsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+    padding: 0 20px 0 20px;
+	margin-right: 5px;
+	max-height: 60vh;
+	overflow: auto;
+
+    ::-webkit-scrollbar-track,
+	::-webkit-scrollbar-track {
+		box-shadow: inset 0 0 2px 2px transparent !important;
+		-webkit-box-shadow: inset 0 0 2px 2px transparent !important;
+		border-radius: 10px;
+		background: transparent !important;
+	}
+	::-webkit-scrollbar,
+	::-webkit-scrollbar {
+		width: 12px;
+		background-color: var(--dado-primary) !important;
+		border-radius: 10px;
+	}
+	::-webkit-scrollbar-thumb,
+	::-webkit-scrollbar-thumb {
+		background-color: #ddd !important;
+		border-radius: 10px;
+	}
+	::-webkit-scrollbar-thumb:hover,
+	::-webkit-scrollbar-thumb:hover {
+		background: #aaa !important;
+	}
+`;
+
 export const Group = styled.div`
-	grid-column: 1 / -1;
-	display: grid;
-	grid-template-columns: 30% 70%;
-	row-gap: 10px;
-	padding: 20px;
-	border-radius: 10px;
+	border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px 0 10px 10px;
+
+    & > h3 {
+        margin: 0;
+
+    }
 `;
 
 // FLOATING LABEL
