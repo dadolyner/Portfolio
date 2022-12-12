@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-type isOpened = {
+type NavigationItems = {
+    repeats: number;
 	isOpen: boolean;
 };
 
@@ -16,7 +17,8 @@ export const Container = styled.nav`
 	right: 0;
 	z-index: 20;
 	background-color: #fff;
-	@media screen and (max-width: 600px) {
+    font-family: 'Roboto', sans-serif;
+	@media screen and (max-width: 900px) {
 		display: grid;
 		grid-template-columns: 50% 50%;
 		align-items: center;
@@ -37,16 +39,16 @@ export const NavigationLogo = styled.div`
     }
 `;
 
-export const NavigationItems = styled.div<isOpened>`
+export const NavigationItems = styled.div<NavigationItems>`
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(${(props) => props.repeats}, 1fr);
 	align-items: center;
 	position: relative;
-	@media screen and (max-width: 600px) {
+	@media screen and (max-width: 900px) {
 		grid-template-columns: 100%;
 		overflow: hidden;
 		width: 100%;
-		max-height: ${({ isOpen }) => (isOpen ? '300px' : '0')};
+		max-height: ${({ isOpen }) => (isOpen ? '400px' : '0')};
 		transition: all 0.3s ease;
 		grid-column: 1 / span 2;
 		align-items: left;
@@ -63,7 +65,7 @@ export const Item = styled.a`
 	text-underline-offset: 5px;
 	color: #000;
 	&:hover { color: #EFB467; }
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 900px) {
         text-align: left;
         padding: 10px;
     }
@@ -93,7 +95,7 @@ export const Hamburger = styled.div`
         & > span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     }
 
-	@media screen and (max-width: 600px) {
+	@media screen and (max-width: 900px) {
 		display: flex;
 		justify-content: center;
 		align-items: center;
