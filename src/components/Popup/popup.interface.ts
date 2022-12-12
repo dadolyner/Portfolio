@@ -180,10 +180,18 @@ type DadoDatetimeLocalInput = {
 type DadoButtonInput = {
     type: 'button';
     name: string;
-    label: string;
+    label?: string;
     value: string;
     color?: string;
     disabled?: boolean;
+    theme?: { 
+        background?: string;
+        backgroundHover?: string;
+        border?: string;
+        borderHover?: string;
+        text?: string;
+        textHover?: string;
+    };
     onClick?: () => void;
 }
 type DadoDropdownInput = {

@@ -3,51 +3,37 @@ import { PopupContainer, PopupContent, HeaderBar, CloseButton, Title, GroupsCont
 import { DadoPopup } from './popup.interface';
 
 // <Popup
-// 	    key={'testPopup'}
-// 	    active={true}
-// 	    title={'Test Popup'}
-// 	    size={700}
-// 	    labelAligment={'center'}
-// 	    onClose={() => console.log('Closed clicked')}
-//      groups={[
-//          {
-//              name: 'Group 1',
-//              inputs: [
-//                  { type: 'text', name: 'text', label: 'Text' },
-//                  { type: 'number', name: 'number', label: 'Number' },
-//                  { type: 'email', name: 'email', label: 'Email' },
-//                  { type: 'password', name: 'password', label: 'Password' },
-//                  { type: 'tel', name: 'tel', label: 'Tel' },
-//                  { type: 'textarea', name: 'textarea', label: 'Textarea' },
-//                  { type: 'color', name: 'color', label: 'Color' },
-//                  { type: 'url', name: 'url', label: 'Url' },
-//                  { type: 'date', name: 'date', label: 'Date' },
-//                  { type: 'time', name: 'time', label: 'Time' },
-//                  { type: 'datetime-local', name: 'datetime-local', label: 'Datetime-local' },
-//                  { type: 'button', name: 'button', label: 'Button', value: 'Button', onClick: () => console.log('Button click') },
-//                  { type: 'dropdown', name: 'dropdown', label: 'Dropdown', options: [{ optionValue: 'Test Value', optionLabel: 'Test Label' }] },
-//                  { type: 'dropdown-search', name: 'dropdown-search', label: 'Dropdown-search', options: [{ optionValue: 'Test Value', optionLabel: 'Test Label' }] },
-//                  { type: 'html', name: 'html', label: 'Html', value: `<hr style="width: 100%;"/><h1>HTML</h1><hr style="width: 100%;"/>` },
-//                  { type: 'file', name: 'file', label: 'File' },
-//                  { type: 'range', name: 'range', label: 'Range' },
-//                  { type: 'checkbox', name: 'checkbox', label: 'Checkbox' },
-//              ]
-//          },
-//          {
-//              name: 'Group 2',
-//              inputs: [
-//                  { type: 'email', name: 'login_email', label: 'Email' },
-//                  { type: 'password', name: 'login_password', label: 'Password' },
-//              ],
-//              theme: { background: '#000', border: '#fff', text: '#fff' }
-//          }
-// 
-//      ]}                 
-// 	    bottomButtons={[
-//          { name: 'confirm', value: 'Confirm', onClick: () => {} },
-//          { name: 'close', value: 'Close', onClick: () => {} },
-//      ]}
-// 	    onConfirm={(values) => { console.log('Confirm clicked', values) }}
+// 	key={'registerPopup'}
+// 	active={true}
+// 	title={'Auth'}
+// 	size={700}
+// 	labelAligment={'center'}
+// 	onClose={() => console.log('Top Close Clicked')}
+//  groups={[
+//      {
+//          name: 'Register',
+//          inputs: [
+//              { type: 'text', name: 'first_name', label: 'First Name' },
+//              { type: 'text', name: 'last_name', label: 'Last Name' },
+//              { type: 'email', name: 'email', label: 'Email' },
+//              { type: 'password', name: 'password', label: 'Password' },
+//              { type: 'button', name: 'registerButton', value: 'Register', theme: { background: '#4568da', backgroundHover: '#ffffff', border: '#ffffff', borderHover: '#4568da', text: '#ffffff', textHover: '#4568da' } },
+//          ]
+//      },
+//      {
+//          name: 'Login',
+//          inputs: [
+//              { type: 'email', name: 'login_email', label: 'Email' },
+//              { type: 'password', name: 'login_password', label: 'Password' },
+//              { type: 'button', name: 'loginButton', value: 'login', theme: { background: '#4568da', backgroundHover: '#ffffff', border: '#ffffff', borderHover: '#4568da', text: '#ffffff', textHover: '#4568da' } },
+//          ]
+//      }    
+//  ]}                 
+// 	bottomButtons={[
+//      { name: 'confirm', value: 'Confirm', onClick: () => console.log('Confirm Clicked'), theme: { background: '#4568da', backgroundHover: '#ffffff', border: '#ffffff', borderHover: '#4568da', text: '#ffffff', textHover: '#4568da' } },
+//      { name: 'close', value: 'Close', onClick: () => console.log('Close Clicked'), theme: { background: '#a20f0f', backgroundHover: '#ffffff', border: '#ffffff', borderHover: '#a20f0f', text: '#ffffff', textHover: '#a20f0f' } },
+//  ]}
+// 	onConfirm={(values) => { console.log('Confirm clicked', values) }}
 // />
 
 const popupTheme = { background: '#fff', border: '#aaa', text: '#000' }
@@ -65,8 +51,9 @@ const id = uuid();
 
 // POPUP
 const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
-    const { active, title, size, labelAligment, groups, bottomButtons, onLoad, onClose, onConfirm} = props
+    const { active, title, size, labelAligment, bottomButtons, onLoad, onClose, onConfirm} = props
     const { background, border, text } = props.theme || popupTheme
+    const groups = props.groups || [{ name: '', inputs: props.inputs }]
     
     const [unClickedRefs, setUnClickedRefs] = React.useState([] as any);
     const [dataOutput, setDataOutput] = React.useState({} as any);
@@ -110,7 +97,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
 					<Title key={uuid()}>{title}</Title>
 
                     <GroupsContainer key={uuid()}>
-                    { groups.map((group) => {
+                    { groups && groups.map((group) => {
                         const { name, inputs, theme } = group
                         const { background, border, text } = theme || groupTheme
                         return (
@@ -220,11 +207,12 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
                                                 );
                                             }
 					            			case 'button': {
-                                                const { type, name, label, value, color, onClick } = input
+                                                const { type, name, label, value, onClick } = input
+                                                const { background, backgroundHover, text, textHover, border, borderHover} = input.theme || buttonsTheme
 									            return (
                                                     <React.Fragment key={uuid()}>
 									                	<Label key={uuid()} className={labelAligment} style={{color: text}}>{label}</Label>
-									                	<Input key={uuid()} ref={inputRefs[name]} id={name} type={type} name={name} value={value ? value : ''} onClick={() => onClick()} style={{ backgroundColor: color ? color : background, color: text, borderColor: border }}/>
+									                	<Button key={uuid()} ref={inputRefs[name]} id={name} type={type} name={name} value={value ? value : ''} onClick={() => onClick()} background={background}backgroundHover={backgroundHover}border={border}borderHover={borderHover}text={text}textHover={textHover}className={'inline_button'}>{value}</Button>
 									                </React.Fragment>
                                                 );
                                             }
@@ -309,7 +297,7 @@ const Popup: React.FC<DadoPopup> = (props: DadoPopup) => {
                     </GroupsContainer>
 
 					<ButtonsContainer key={uuid()}>
-						{ bottomButtons.map((button) => {
+						{ bottomButtons && bottomButtons.map((button) => {
 							const { name, value, onClick } = button
                             const { background, backgroundHover, text, textHover, border, borderHover} = button.theme || buttonsTheme
 							return (

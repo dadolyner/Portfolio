@@ -188,6 +188,10 @@ export const Button = styled.button<PopupButton>`
         color: ${(props) => props.textHover};
 		background: ${(props) => props.backgroundHover};
 	}
+    &.inline_button {
+        width: 106%;
+        margin: 0;
+    }
 `;
 
 // GROUPS
