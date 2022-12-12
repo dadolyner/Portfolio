@@ -2,13 +2,13 @@ import * as React from 'react';
 import { PopupContainer, PopupContent, HeaderBar, CloseButton, Title, GroupsContainer, Group, Form, Label, Input, TextArea, Html, Select, Divider, ButtonsContainer, Button } from './popup.styled';
 import { DadoPopup } from './popup.interface';
 
-// <Popup
-// 	key={'registerPopup'}
-// 	active={true}
-// 	title={'Auth'}
-// 	size={700}
-// 	labelAligment={'center'}
-// 	onClose={() => console.log('Top Close Clicked')}
+//<Popup
+//  key={'registerPopup'}
+//  active={true}
+//  title={'Auth'}
+//  size={700}
+//  labelAligment={'center'}
+//  onClose={() => console.log('Top Close Clicked')}
 //  groups={[
 //      {
 //          name: 'Register',
@@ -17,7 +17,7 @@ import { DadoPopup } from './popup.interface';
 //              { type: 'text', name: 'last_name', label: 'Last Name' },
 //              { type: 'email', name: 'email', label: 'Email' },
 //              { type: 'password', name: 'password', label: 'Password' },
-//              { type: 'button', name: 'registerButton', value: 'Register', theme: { background: '#4568da', backgroundHover: '#ffffff', border: '#ffffff', borderHover: '#4568da', text: '#ffffff', textHover: '#4568da' } },
+//              { type: 'button', name: 'registerButton', value: 'Register', onClick: () => console.log('Register Clicked'), theme: { background: '#4568da', backgroundHover: '#ffffff', border: '#ffffff', borderHover: '#4568da', text: '#ffffff', textHover: '#4568da' } },
 //          ]
 //      },
 //      {
@@ -25,16 +25,16 @@ import { DadoPopup } from './popup.interface';
 //          inputs: [
 //              { type: 'email', name: 'login_email', label: 'Email' },
 //              { type: 'password', name: 'login_password', label: 'Password' },
-//              { type: 'button', name: 'loginButton', value: 'login', theme: { background: '#4568da', backgroundHover: '#ffffff', border: '#ffffff', borderHover: '#4568da', text: '#ffffff', textHover: '#4568da' } },
+//              { type: 'button', name: 'loginButton', value: 'login', onClick: () => console.log('Login Clicked'), theme: { background: '#4568da', backgroundHover: '#ffffff', border: '#ffffff', borderHover: '#4568da', text: '#ffffff', textHover: '#4568da' } },
 //          ]
-//      }    
+//      }            
 //  ]}                 
-// 	bottomButtons={[
-//      { name: 'confirm', value: 'Confirm', onClick: () => console.log('Confirm Clicked'), theme: { background: '#4568da', backgroundHover: '#ffffff', border: '#ffffff', borderHover: '#4568da', text: '#ffffff', textHover: '#4568da' } },
-//      { name: 'close', value: 'Close', onClick: () => console.log('Close Clicked'), theme: { background: '#a20f0f', backgroundHover: '#ffffff', border: '#ffffff', borderHover: '#a20f0f', text: '#ffffff', textHover: '#a20f0f' } },
-//  ]}
-// 	onConfirm={(values) => { console.log('Confirm clicked', values) }}
-// />
+//  bottomButtons={[
+//         { name: 'confirm', value: 'Confirm', onClick: () => console.log('Confirm Clicked'), theme: { background: '#4568da', backgroundHover: '#ffffff', border: '#ffffff', borderHover: '#4568da', text: '#ffffff', textHover: '#4568da' } },
+//         { name: 'close', value: 'Close', onClick: () => console.log('Close Clicked'), theme: { background: '#a20f0f', backgroundHover: '#ffffff', border: '#ffffff', borderHover: '#a20f0f', text: '#ffffff', textHover: '#a20f0f' } },
+//     ]}
+//  onConfirm={(values) => { console.log('Confirm clicked', values) }}
+///>
 
 const popupTheme = { background: '#fff', border: '#aaa', text: '#000' }
 const buttonsTheme = { background: '#4568da', backgroundHover: '#ffffff', border: '#ffffff', borderHover: '#4568da', text: '#ffffff', textHover: '#4568da' }
